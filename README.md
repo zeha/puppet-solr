@@ -1,5 +1,8 @@
 # solr
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/conzar/solr.svg)](https://forge.puppetlabs.com/conzar/solr)
+[![Build Status](https://travis-ci.org/Conzar/solr.svg?branch=master)](https://travis-ci.org/Conzar/solr)
+
 Author: Michael Speth <spethm@landcareresearch.co.nz>
 
 ## About
