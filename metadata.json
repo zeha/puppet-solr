@@ -4,9 +4,9 @@
   "author": "conzar",
   "summary": "Configures and Installs Apache Solr",
   "license": "GPL-3.0+",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
+  "source": "git@github.com:Conzar/solr.git",
+  "project_page": "https://github.com/Conzar/solr",
+  "issues_url": "https://github.com/Conzar/solr/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",
