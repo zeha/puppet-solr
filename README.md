@@ -59,19 +59,10 @@ Uses the defaults
 include solr
 ```
 
-## License
+## Limitations
 
-GPL version 3
+Works with debian and redhat based OS's.
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
+## Development
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, [see](http://www.gnu.org/licenses/).
+The module is open source and available on github.  Please fork!
