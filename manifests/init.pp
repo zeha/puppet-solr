@@ -38,9 +38,7 @@
 #
 # === Examples
 #
-#  class { 'solr':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+# include solr
 #
 # === Copyright
 #
