@@ -1,12 +1,12 @@
 {
-  "name": "conzar-solr",
-  "version": "0.1.0",
-  "author": "conzar",
+  "name": "landcareresearch-solr",
+  "version": "0.1.1",
+  "author": "Michael Speth",
   "summary": "Configures and Installs Apache Solr",
   "license": "GPL-3.0+",
-  "source": "git@github.com:Conzar/solr.git",
-  "project_page": "https://github.com/Conzar/solr",
-  "issues_url": "https://github.com/Conzar/solr/issues",
+  "source": "git://bitbucket.org/landcareresearch/puppet-solr.git",
+  "project_page": "https://bitbucket.org/landcareresearch/puppet-solr",
+  "issues_url": "https://bitbucket.org/landcareresearch/puppet-solr/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",

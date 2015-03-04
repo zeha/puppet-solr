@@ -1,7 +1,7 @@
 # solr
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/conzar/solr.svg)](https://forge.puppetlabs.com/conzar/solr)
-[![Build Status](https://travis-ci.org/Conzar/solr.svg?branch=master)](https://travis-ci.org/Conzar/solr)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/landcareresearch/solr.svg)](https://forge.puppetlabs.com/landcaresearch/amazon_s3)
+[![Bitbucket Build Status](http://build.landcareresearch.co.nz/app/rest/builds/buildType%3A%28id%3ALinuxAdmin_PuppetSolr_PuppetSolr%29/statusIcon)](http://build.landcareresearch.co.nz/viewType.html?buildTypeId=LinuxAdmin_PuppetSolr_PuppetSolr&guest=1)
 
 Author: Michael Speth <spethm@landcareresearch.co.nz>
 
