@@ -2,7 +2,7 @@
 #
 # Full description of class solr here.
 #
-# === Parameters
+# === Variables
 #
 # [*url*]
 #   The url of the source repository for apache jetty.
@@ -25,13 +25,9 @@
 #   The network port used by Jetty
 #   Default Port: 8983
 #
-# === Variables
-#
-# [*solr_home*]
-#   The home directory for solr.
-#
-# [*solr_home_src*]
-#   The source directory for solr.
+# [*timeout*]
+#   The timeout used for downloading the solr package.
+#   Default: 120 seconds.
 #
 # === Examples
 #
@@ -41,15 +37,14 @@
 # GPL-3.0+
 #
 class solr::params (
-  $url        = 'http://mirrors.gigenet.com/apache/lucene/solr',
-  $version    = '4.10.3',
-  $jetty_user = 'solr',
-  $jetty_host = '127.0.0.1',
-  $jetty_port = '8983',
 ){
 
-  $solr_home = '/opt/solr'
-  $solr_home_src = "/opt/solr-${solr::params::version}"
+  $url        = 'http://mirrors.gigenet.com/apache/lucene/solr'
+  $version    = '4.10.3'
+  $jetty_user = 'solr'
+  $jetty_host = '127.0.0.1'
+  $jetty_port = '8983'
+  $timeout    = '120'
 
   # OS Specific configuration
   case $::osfamily {

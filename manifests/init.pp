@@ -33,8 +33,23 @@
 #   The network port used by Jetty
 #   Default Port: 8983
 #
+# [*timeout*]
+#   The timeout used for downloading the solr package.
+#   Default: 120 seconds.
+#
 # === Variables
 #
+# [*solr_home*]
+#   The home directory for solr.
+#
+# [*solr_home_conf*]
+#   The solr conf directory where schema's should be installed.
+#
+# [*solr_home_src*]
+#   The source directory for solr.
+#
+# [*solr_home_example_dir*]
+#   The directory that contains the example directory.
 #
 # === Examples
 #
@@ -50,7 +65,14 @@ class solr (
   $jetty_user = $solr::params::jetty_user,
   $jetty_host = $solr::params::jetty_host,
   $jetty_port = $solr::params::jetty_port,
+  $timeout    = $solr::params::timeout,
 ) inherits ::solr::params{
+  
+  ## === Variables === ##
+  $solr_home      = '/opt/solr'
+  $solr_home_conf = "${solr_home}/conf"
+  $solr_home_src  = "/opt/solr-${solr::params::version}"
+  $solr_home_example_dir = "${solr_home}/example/collection1"
   
   anchor{'solr::begin':}
 

@@ -17,12 +17,15 @@
 #
 class solr::config {
   
+  anchor{'solr::config::begin':}
+
   # make OS specific changes
   case $::osfamily {
     'redhat': { }
     'debian':{
       file {'/usr/java':
-        ensure => directory,
+        ensure  => directory,
+        require => Anchor['solr::config::begin'],
       }
 
       # setup a sym link for java home
@@ -38,19 +41,36 @@ class solr::config {
 redhat based system")
     }
   }
+  
+  # create the conf directory
+  file {$solr::solr_home_conf:
+    ensure  => directory,
+    require => Anchor['solr::config::begin'],
+  }
+
+  file{"${solr::solr_home}/solr":
+    ensure => directory,
+    owner   => $solr::jetty_user,
+    group   => $solr::jetty_user,
+    recurse => true,
+    require => File[$solr::solr_home_conf],
+  }
 
   # setup logging
-  file {"${solr::params::solr_home}/etc/jetty-logging.xml":
-    ensure => file,
-    owner  => $solr::jetty_user,
-    group  => $solr::jetty_user,
-    source => 'puppet:///modules/solr/jetty-logging.xml',
+  file {"${solr::solr_home}/etc/jetty-logging.xml":
+    ensure  => file,
+    owner   => $solr::jetty_user,
+    group   => $solr::jetty_user,
+    source  => 'puppet:///modules/solr/jetty-logging.xml',
+    #require => File["${solr::solr_home}/solr"],
+    require => File[$solr::solr_home_conf],
   }
 
   # setup default jetty configuration file.
   file {'/etc/default/jetty':
     ensure  => file,
-    content => template('solr/jetty.erb')
+    content => template('solr/jetty.erb'),
+    require => File ["${solr::solr_home}/etc/jetty-logging.xml"],
   }
 
   # setup the service level entry
@@ -58,22 +78,22 @@ redhat based system")
     ensure  => file,
     mode    => '0755',
     content => template('solr/jetty.sh.erb'),
+    require => File ['/etc/default/jetty'],
   }
 
   # log file for jetty
   file {'/var/log/jetty':
     ensure  => directory,
+    require => File ['/etc/init.d/jetty'],
   }
 
   file {'/var/cache/jetty':
     ensure  => directory,
+    require => File ['/var/log/jetty'],
   }
 
-  # make sure solr owns contents of solr dir.
-#  file {'/opt/solr':
-#    ensure  => directory,
-#    owner   => 'solr',
-#    recurse => true,
-#    #require => User['solr'],
-#  }
+  anchor {'solr::config::end':
+    require => File ['/var/cache/jetty'],
+  }
+
 }

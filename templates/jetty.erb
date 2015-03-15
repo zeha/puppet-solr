@@ -24,7 +24,7 @@ JETTY_PORT=<%= scope.lookupvar('solr::jetty_port') %>
 # log file
 JETTY_LOGS=/opt/solr/logs
 
-JETTY_HOME=<%= scope.lookupvar('solr::params::solr_home') %>
+JETTY_HOME=<%= scope.lookupvar('solr::solr_home') %>
 
 # Extra options to pass to the JVM         
 #JAVA_OPTIONS="-Xmx256m -Djava.awt.headless=true"

@@ -1,6 +1,6 @@
 # solr
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/landcareresearch/solr.svg)](https://forge.puppetlabs.com/landcaresearch/amazon_s3)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/landcareresearch/solr.svg)](https://forge.puppetlabs.com/landcaresearch/solr)
 [![Bitbucket Build Status](http://build.landcareresearch.co.nz/app/rest/builds/buildType%3A%28id%3ALinuxAdmin_PuppetSolr_PuppetSolr%29/statusIcon)](http://build.landcareresearch.co.nz/viewType.html?buildTypeId=LinuxAdmin_PuppetSolr_PuppetSolr&guest=1)
 
 Author: Michael Speth <spethm@landcareresearch.co.nz>
@@ -58,6 +58,34 @@ Uses the defaults
 ```
 include solr
 ```
+
+## Installing Cores
+
+Cores can be installed via the defined type solr::core.  Solr should pick up the new cores without needing to do a refresh.
+
+### Parameters
+
+#### `core_name`
+The name of the core (must be unique).
+Default: $title
+
+#### `schema_src_file`
+The schema file must exist on the file system and should be controlled
+outside of this module.  This will simply link the schema file to 
+Required
+
+### Example
+
+file {'/tmp/schema.xml':
+  ensure => file,
+  content => inline_template('....'),
+}
+
+solr::core{'test':
+  schema_src_file => '/tmp/schema.xml',
+  require         => File ['/tmp/schema.xml'],
+}
+
 
 ## Limitations
 
