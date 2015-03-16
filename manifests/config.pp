@@ -49,7 +49,7 @@ redhat based system")
   }
 
   file{"${solr::solr_home}/solr":
-    ensure => directory,
+    ensure  => directory,
     owner   => $solr::jetty_user,
     group   => $solr::jetty_user,
     recurse => true,

@@ -30,8 +30,8 @@ class solr::install {
     home       => $solr::solr_home,
     managehome => false,
     shell      => '/bin/bash',
-    require    => [Package[$solr::params::required_packages],
-                   Anchor['solr::install::begin']],
+    require    => [ Package[$solr::params::required_packages],
+                    Anchor['solr::install::begin']],
   }
   
   # download and unpackage solr
@@ -58,7 +58,7 @@ ${solr::solr_home}",
   
   # change permissions
   exec {'change permissions':
-    command => "/bin/chown ${solr::jetty_user}:${solr::jetty_user} -R\
+    command     => "/bin/chown ${solr::jetty_user}:${solr::jetty_user} -R\
  ${solr::solr_home}",
     refreshonly => true,
     subscribe   => Exec['copy solr'],

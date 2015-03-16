@@ -1,6 +1,6 @@
 #include solr
 file {'/tmp/schema.xml':
-  ensure => file,
+  ensure  => file,
   content => inline_template('test info'),
 }
 
@@ -13,10 +13,10 @@ class {'solr':
 
 solr::core{'test':
   schema_src_file => '/tmp/schema.xml',
-  require => Class['solr'],
+  require         => Class['solr'],
 }
 
 solr::core{'test2':
   schema_src_file => '/tmp/schema.xml',
-  require => Class['solr'],
+  require         => Class['solr'],
 }
