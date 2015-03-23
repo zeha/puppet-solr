@@ -76,6 +76,7 @@ Required
 
 ### Example
 
+```puppet
 file {'/tmp/schema.xml':
   ensure => file,
   content => inline_template('....'),
@@ -85,6 +86,7 @@ solr::core{'test':
   schema_src_file => '/tmp/schema.xml',
   require         => File ['/tmp/schema.xml'],
 }
+```
 
 
 ## Limitations

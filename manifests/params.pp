@@ -50,11 +50,13 @@ class solr::params (
   case $::osfamily {
       'redhat': {
         $required_packages  = ['java-1.7.0-openjdk']
+        $java_home = '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64'
 
       }
       'debian':{
         #$required_packages = ['openjdk-7-jre','jsvc','apache2-utils']
         $required_packages = ['openjdk-7-jre']
+        $java_home = '/usr/lib/jvm/java-7-openjdk-amd64/jre'
       }
       default: {
         fail("Unsupported OS ${::osfamily}.  Please use a debian or \

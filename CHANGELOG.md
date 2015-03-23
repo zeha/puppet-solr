@@ -1,3 +1,12 @@
+## 2015-03-17 Release 0.2.1
+### Summary
+Setting Java_Home
+
+### Changed
+ - Set the java home & java path so that jetty uses the defined java within solr 
+   currently using java 7.
+
+
 ## 2015-03-16 Release 0.2.0
 ### Summary
 Added params
