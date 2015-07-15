@@ -71,7 +71,7 @@ class solr (
   ## === Variables === ##
   $solr_home      = '/opt/solr'
   $solr_home_conf = "${solr_home}/conf"
-  $solr_home_src  = "/opt/solr-${solr::params::version}"
+  $solr_home_src  = "/opt/solr-${version}"
   $solr_home_example_dir = "${solr_home}/example/collection1"
   
   anchor{'solr::begin':}
