@@ -1,3 +1,10 @@
+## 2015-03-17 Release 0.2.2
+### Summary
+Fixed version issue
+
+### Changed
+ - There was an issue with the version that was dependant on the version in the params instead of the specified version.
+
 ## 2015-03-17 Release 0.2.1
 ### Summary
 Setting Java_Home
