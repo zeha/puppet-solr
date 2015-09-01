@@ -1,3 +1,13 @@
+
+## 2015-09-01 Release 0.3.1
+### Summary
+Added shared libraries
+
+### Changed
+ - Added a mechanism to install shared libraries for solr.
+ - Changed default version of solr from 4.10.3 to 5.3.0.
+ - Fixed readme typos.
+
 ## 2015-09-01 Release 0.3.0
 ### Summary
 Migrated to Solr 5.x

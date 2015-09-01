@@ -57,6 +57,9 @@
 # [*basic_dir*]
 #   The directory to the basic configuration example core.
 #
+# [*solr_lib_dir*]
+#   The directory to install shared libraries for use by solr.
+#
 # === Examples
 #
 # include solr
@@ -82,6 +85,7 @@ class solr (
   $solr_env       = '/etc/default/solr'
   $solr_core_home = "${solr_home}/server/solr"
   $basic_dir      = "${solr::solr_core_home}/configsets/basic_configs/conf"
+  $solr_lib_dir   = "${solr_home}/server/solr-webapp/webapp/WEB-INF/lib"
 
   anchor{'solr::begin':}
 

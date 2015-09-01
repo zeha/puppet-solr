@@ -10,7 +10,7 @@
 #
 # [*version*]
 #   The version to install.
-#   Default: '4.10.3'.
+#   Default: '5.3.0'.
 #
 # [*solr_user*]
 #   Run Solr as this user ID (default: solr)
@@ -39,12 +39,12 @@
 class solr::params (
 ){
 
-  $url        = 'http://mirrors.gigenet.com/apache/lucene/solr'
-  $version    = '4.10.3'
+  $url       = 'http://mirrors.gigenet.com/apache/lucene/solr'
+  $version   = '5.3.0'
   $solr_user = 'solr'
   $solr_host = '127.0.0.1'
   $solr_port = '8983'
-  $timeout    = '120'
+  $timeout   = '120'
 
   # OS Specific configuration
   case $::osfamily {

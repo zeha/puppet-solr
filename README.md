@@ -91,6 +91,38 @@ solr::core{'test':
 }
 ```
 
+## Installing Shared Libraries
+
+This defined type allows shared libraries to be installed for use by solr.
+
+### Parameters
+
+#### `url`
+A file to download and install to the tomcat's lib directory.
+
+#### `filename`
+If the name of the file is to be different than the filename from the the url, the name of the file can be set.
+Default: undef
+
+
+#### `path`
+The path to copy the file. If setting a custom path, this module does not handle maintaining the path, this is up to the calling module.
+Default: $solr::solr_lib_dir
+
+#### `web_user`
+The user name of the url to download.
+Default: undef
+
+#### `web_password`
+The user's password to download the file.
+Default: undef
+
+### Example
+```
+solr::shared_lib{'jts':
+  url => 'http://search.maven.org/remotecontent?filepath=com/vividsolutions/jts/1.13/jts-1.13.jar'
+}
+```
 
 ## Limitations
 
