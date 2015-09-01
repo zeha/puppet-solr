@@ -16,7 +16,7 @@
 # GPL-3.0+
 #
 class solr::config {
-  
+
   anchor{'solr::config::begin':}
 
   # make OS specific changes
@@ -33,7 +33,7 @@ class solr::config {
         ensure  => 'link',
         target  => '/usr/lib/jvm/java-7-openjdk-amd64',
         require => File['/usr/java'],
-        before  => File['/etc/default/jetty'],
+        before  => File[$solr::solr_env],
       }
     }
     default: {
@@ -41,59 +41,42 @@ class solr::config {
 redhat based system")
     }
   }
-  
-  # create the conf directory
-  file {$solr::solr_home_conf:
+
+  # create the directories
+  file {$solr::solr_logs:
     ensure  => directory,
+    owner   => $solr::jetty_user,
+    group   => $solr::jetty_user,
     require => Anchor['solr::config::begin'],
   }
 
-  file{"${solr::solr_home}/solr":
-    ensure  => directory,
-    owner   => $solr::jetty_user,
-    group   => $solr::jetty_user,
-    recurse => true,
-    require => File[$solr::solr_home_conf],
-  }
-
   # setup logging
-  file {"${solr::solr_home}/etc/jetty-logging.xml":
-    ensure  => file,
-    owner   => $solr::jetty_user,
-    group   => $solr::jetty_user,
-    source  => 'puppet:///modules/solr/jetty-logging.xml',
-    #require => File["${solr::solr_home}/solr"],
-    require => File[$solr::solr_home_conf],
-  }
+#  file {"${solr::solr_home}/etc/jetty-logging.xml":
+#    ensure  => file,
+#    owner   => $solr::jetty_user,
+#    group   => $solr::jetty_user,
+#    source  => 'puppet:///modules/solr/jetty-logging.xml',
+#    #require => File["${solr::solr_home}/solr"],
+#    require => File[$solr::solr_home_conf],
+#  }
 
   # setup default jetty configuration file.
-  file {'/etc/default/jetty':
+  file { $solr::solr_env:
     ensure  => file,
-    content => template('solr/jetty.erb'),
-    require => File ["${solr::solr_home}/etc/jetty-logging.xml"],
+    content => template('solr/solr.in.sh.erb'),
+    require => File [$solr::solr_logs],
   }
 
   # setup the service level entry
-  file {'/etc/init.d/jetty':
+  file {'/etc/init.d/solr':
     ensure  => file,
     mode    => '0755',
-    content => template('solr/jetty.sh.erb'),
-    require => File ['/etc/default/jetty'],
-  }
-
-  # log file for jetty
-  file {'/var/log/jetty':
-    ensure  => directory,
-    require => File ['/etc/init.d/jetty'],
-  }
-
-  file {'/var/cache/jetty':
-    ensure  => directory,
-    require => File ['/var/log/jetty'],
+    content => template('solr/solr.sh.erb'),
+    require => File [$solr::solr_env],
   }
 
   anchor {'solr::config::end':
-    require => File ['/var/cache/jetty'],
+    require => File ['/etc/init.d/solr'],
   }
 
 }

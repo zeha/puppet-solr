@@ -4,15 +4,19 @@
 #
 # === Parameters
 #
-# [*schema_src_file*] Required
-#   The schema file must exist on the file system and should be controlled
-#   outside of this module.  This will simply link the schema file to 
-#
 # [*core_name*]
 #   The name of the core (must be unique).
 #   Default: $title
 #
+# [*schema_src_file*]
+#   The schema file must exist on the file system and should be controlled
+#   outside of this module.  This will simply link to the schema file.
+#   Default: the basic example core's schema.
+#
 # === Variables
+#
+# [*dest_dir*]
+#
 #
 # === Examples
 #
@@ -21,8 +25,8 @@
 # GPL-3.0+
 #
 define solr::core (
-  $schema_src_file,
-  $core_name = $title,
+  $core_name       = $title,
+  $schema_src_file = "${solr::basic_dir}/schema.xml",
   ){
 
   anchor {"solr::core::${core_name}::begin":}
@@ -34,26 +38,69 @@ define solr::core (
  resources")
   }
 
-  $dest_dir    = "${solr::solr_home}/solr/${core_name}"
-  $schema_file = "${dest_dir}/conf/schema.xml"
+  $dest_dir    = "${solr::solr_core_home}/${core_name}"
+  $conf_dir    = "${dest_dir}/conf"
+  $schema_file = "${conf_dir}/schema.xml"
 
-  exec {"${core_name}_copy_core":
-    command => "/bin/cp -r ${solr::solr_home_example_dir} ${dest_dir} &&\
- /bin/rm ${schema_file} &&\
- /bin/chown -R ${solr::jetty_user}:${solr::jetty_user} ${dest_dir}",
-    creates => $dest_dir,
-    require => Anchor["solr::core::${core_name}::begin"],
+  # create the conf directory
+  file {[$dest_dir,$conf_dir]:
+    ensure => directory,
+    owner  => $solr::solr_user,
+    group  => $solr::solr_user,
+  }
+
+  exec {"${core_name}_copy_solrconfig":
+    command => "/bin/cp ${solr::basic_dir}/solrconfig.xml ${conf_dir}/.",
+    user    => $solr::solr_user,
+    creates => "${conf_dir}/solrconfig.xml",
+    require => File[$conf_dir],
+  }
+  exec {"${core_name}_copy_synonyms":
+    command => "/bin/cp ${solr::basic_dir}/synonyms.txt ${conf_dir}/.",
+    user    => $solr::solr_user,
+    creates => "${conf_dir}/synonyms.txt",
+    require => Exec ["${core_name}_copy_solrconfig"],
+  }
+  exec {"${core_name}_copy_protwords":
+    command => "/bin/cp ${solr::basic_dir}/protwords.txt ${conf_dir}/.",
+    user    => $solr::solr_user,
+    creates => "${conf_dir}/protwords.txt",
+    require => Exec ["${core_name}_copy_synonyms"],
+  }
+  exec {"${core_name}_copy_stopwords":
+    command => "/bin/cp ${solr::basic_dir}/stopwords.txt ${conf_dir}/.",
+    user    => $solr::solr_user,
+    creates => "${conf_dir}/stopwords.txt",
+    require => Exec ["${core_name}_copy_protwords"],
+  }
+  exec {"${core_name}_copy_lang":
+    command => "/bin/cp -r ${solr::basic_dir}/lang ${conf_dir}/.",
+    user    => $solr::solr_user,
+    creates => "${conf_dir}/lang/stopwords_en.txt",
+    require => Exec ["${core_name}_copy_stopwords"],
+  }
+  exec {"${core_name}_copy_currency":
+    command => "/bin/cp ${solr::basic_dir}/currency.xml ${conf_dir}/.",
+    user    => $solr::solr_user,
+    creates => "${conf_dir}/currency.xml",
+    require => Exec ["${core_name}_copy_lang"],
   }
 
   file {$schema_file:
     ensure  => link,
     target  => $schema_src_file,
-    require => Exec ["${core_name}_copy_core"],
+    owner   => $solr::solr_user,
+    group   => $solr::solr_user,
+    require => Exec ["${core_name}_copy_currency"],
   }
 
   file {"${dest_dir}/core.properties":
     ensure  => file,
-    content => inline_template("name=${core_name}"),
+    content => inline_template(
+"name=${core_name}
+config=solrconfig.xml
+schema=schema.xml
+dataDir=data"),
     require => File[$schema_file],
   }
 

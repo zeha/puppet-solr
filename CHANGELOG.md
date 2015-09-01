@@ -1,3 +1,20 @@
+## 2015-09-01 Release 0.3.0
+### Summary
+Migrated to Solr 5.x
+
+### Changed
+ - Added compatability for Solr 5.x
+ - Is no longer compatible with Solr 4.x
+ - Removed puppet archive requirement
+ - Added puppet wget requirement
+
+## 2015-03-17 Release 0.2.3
+### Summary
+Updates
+
+### Changed
+ - Updated Readme to reflect migration to bitbucket and removed author as to promote open source.
+
 ## 2015-03-17 Release 0.2.2
 ### Summary
 Fixed version issue

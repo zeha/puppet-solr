@@ -13,23 +13,23 @@
 # === Parameters
 #
 # [*url*]
-#   The url of the source repository for apache jetty.
+#   The url of the source repository for apache solr.
 #   Default: 'http://mirrors.gigenet.com/apache/lucene/solr',
 #
 # [*version*]
 #   The version to install.
 #   Default: '4.10.3'.
 #
-# [*jetty_user*]
-#   Run Jetty as this user ID (default: solr)
+# [*solr_user*]
+#   Run Solr as this user ID (default: solr)
 #   Note, creates this user.
 #
-# [*jetty_host*]
+# [*solr_host*]
 #   Listen to connections from this network host
 #   Use 0.0.0.0 as host to accept all connections.
 #   Default: 127.0.0.1
 #
-# [*jetty_port*]
+# [*solr_port*]
 #   The network port used by Jetty
 #   Default Port: 8983
 #
@@ -45,11 +45,17 @@
 # [*solr_home_conf*]
 #   The solr conf directory where schema's should be installed.
 #
+# [*solr_downloads*]
+#   Contains the solr tarballs and extracted dirs.
+#
 # [*solr_home_src*]
 #   The source directory for solr.
 #
-# [*solr_home_example_dir*]
-#   The directory that contains the example directory.
+# [*solr_core_home*]
+#   The directory that contains cores.
+#
+# [*basic_dir*]
+#   The directory to the basic configuration example core.
 #
 # === Examples
 #
@@ -60,26 +66,29 @@
 # GPL-3.0+
 #
 class solr (
-  $url        = $solr::params::url,
-  $version    = $solr::params::version,
-  $jetty_user = $solr::params::jetty_user,
-  $jetty_host = $solr::params::jetty_host,
-  $jetty_port = $solr::params::jetty_port,
-  $timeout    = $solr::params::timeout,
+  $url       = $solr::params::url,
+  $version   = $solr::params::version,
+  $solr_user = $solr::params::solr_user,
+  $solr_host = $solr::params::solr_host,
+  $solr_port = $solr::params::solr_port,
+  $timeout   = $solr::params::timeout,
 ) inherits ::solr::params{
-  
+
   ## === Variables === ##
   $solr_home      = '/opt/solr'
-  $solr_home_conf = "${solr_home}/conf"
-  $solr_home_src  = "/opt/solr-${version}"
-  $solr_home_example_dir = "${solr_home}/example/collection1"
-  
+  $solr_downloads = '/opt/solr_downloads'
+  $solr_home_src  = "${solr_downloads}/solr-${version}"
+  $solr_logs      = "${solr_home}/logs"
+  $solr_env       = '/etc/default/solr'
+  $solr_core_home = "${solr_home}/server/solr"
+  $basic_dir      = "${solr::solr_core_home}/configsets/basic_configs/conf"
+
   anchor{'solr::begin':}
 
   class{'solr::install':
     require => Anchor['solr::begin'],
   }
-  
+
   class{'solr::config':
     require => Class['solr::install'],
   }
@@ -87,7 +96,7 @@ class solr (
   class{'solr::service':
     subscribe => Class['solr::config'],
   }
-  
+
   anchor{'solr::end':
     require => Class['solr::service'],
   }

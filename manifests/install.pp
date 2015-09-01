@@ -7,6 +7,8 @@
 #
 # === Variables
 #
+# [*tarball*]
+#   The destination full path to the solr tarball.
 #
 # === Examples
 #
@@ -19,13 +21,17 @@
 # GPL-3.0+
 #
 class solr::install {
-  
+
   anchor{'solr::install::begin':}
+
+  # == variables == #
+  $tarball        = "${solr::solr_downloads}/solr_${solr::version}.tgz"
+
   # install requirements
   ensure_packages($solr::params::required_packages)
 
   ## create a solr user
-  user {$solr::jetty_user:
+  user {$solr::solr_user:
     ensure     => present,
     home       => $solr::solr_home,
     managehome => false,
@@ -33,53 +39,54 @@ class solr::install {
     require    => [ Package[$solr::params::required_packages],
                     Anchor['solr::install::begin']],
   }
-  
+
+  # directory to store downloaded solr versions
+  file {$solr::solr_home:
+    ensure  => directory,
+    owner   => $solr::solr_user,
+    group   => $solr::solr_user,
+    require => User [$solr::solr_user],
+  }
+
+  file { $solr::solr_downloads:
+    ensure  => directory,
+    require => File [$solr::solr_home],
+  }
+
   # download and unpackage solr
-  archive { 'solr':
-    ensure           => present,
-    url              => "${solr::url}/${solr::version}/solr-\
-${solr::version}.tgz ",
-    target           => '/opt',
-    follow_redirects => true,
-    extension        => 'tgz',
-    checksum         => false,
-    timeout          => $solr::timeout,
-    require          => User[$solr::jetty_user],
+  wget::fetch{'solr':
+    source      => "${solr::url}/${solr::version}/solr-${solr::version}.tgz",
+    destination => $tarball,
+    timeout     => 0,
+    verbose     => false,
+  }
+
+  # extract zip
+  exec {'extract solr':
+    command     => "/bin/tar -C ${solr::solr_downloads} -xf ${tarball}",
+    refreshonly => true,
+    subscribe   => Wget::Fetch['solr'],
   }
 
   # copy directory
-  # & delete collection 1
   exec {'copy solr':
-    command     => "/bin/cp -r ${solr::solr_home_src}/example \
+    command     => "/bin/cp -r ${solr::solr_home_src}/* \
 ${solr::solr_home}",
     refreshonly => true,
-    subscribe   => Archive['solr'],
+    subscribe   => Exec ['extract solr'],
   }
-  
+
   # change permissions
   exec {'change permissions':
-    command     => "/bin/chown ${solr::jetty_user}:${solr::jetty_user} -R\
+    command     => "/bin/chown ${solr::solr_user}:${solr::solr_user} -R\
  ${solr::solr_home}",
     refreshonly => true,
     subscribe   => Exec['copy solr'],
   }
 
-  file {"${solr::solr_home}/example":
-    ensure  => directory,
-    owner   => $solr::jetty_user,
-    group   => $solr::jetty_user,
-    require => Exec['change permissions'],
-  }
-  
-  # move collection1 to example directory
-  exec {'move collection1':
-    command => "/bin/mv ${solr::solr_home}/solr/collection1\
- ${solr::solr_home_example_dir}",
-    creates => $solr::solr_home_example_dir,
-    require => File ["${solr::solr_home}/example"],
-  }
 
   anchor{'solr::install::end':
-    require => Exec['move collection1'],
+    #require => Exec['move collection1'],
+    require => Exec ['change permissions']
   }
 }

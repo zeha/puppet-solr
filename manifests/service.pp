@@ -14,12 +14,11 @@
 #
 class solr::service {
   anchor {'solr::service::begin':}
-  service {'jetty':
-    ensure    => running,
-    require   => Anchor['solr::service::begin'],
-    subscribe => File["${solr::solr_home}/solr"]
+  service {'solr':
+    ensure  => running,
+    require => Anchor['solr::service::begin'],
   }
   anchor {'solr::service::end':
-    require => Service ['jetty'],
+    require => Service ['solr'],
   }
 }
