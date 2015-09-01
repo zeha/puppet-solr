@@ -8,7 +8,7 @@
 Installs and configures apache solr and runs the embedded jetty service.
 http://lucene.apache.org/solr/
 
-Originally, this module supported solr 4.x.x.  However, version 0.3.0 has been upgradted to work with solar 5.x and no longer supports 4.x
+Originally, this module supported solr 4.x.  However, version 0.3.0 has been upgraded to work with solar 5.x and no longer supports 4.x
 So if you want to use solr 4.x, than please continue to use 0.2.2.
 
 ## Module Description
