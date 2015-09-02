@@ -45,8 +45,8 @@ redhat based system")
   # create the directories
   file {$solr::solr_logs:
     ensure  => directory,
-    owner   => $solr::jetty_user,
-    group   => $solr::jetty_user,
+    owner   => $solr::solr_user,
+    group   => $solr::solr_user,
     require => Anchor['solr::config::begin'],
   }
 
