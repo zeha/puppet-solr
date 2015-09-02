@@ -1,4 +1,11 @@
 
+## 2015-09-02 Release 0.3.2
+### Summary
+Hotfix
+
+### Changed
+ - The owner/group of logs directory.
+
 ## 2015-09-01 Release 0.3.1
 ### Summary
 Added shared libraries
