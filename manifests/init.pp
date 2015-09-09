@@ -42,9 +42,6 @@
 # [*solr_home*]
 #   The home directory for solr.
 #
-# [*solr_home_conf*]
-#   The solr conf directory where schema's should be installed.
-#
 # [*solr_downloads*]
 #   Contains the solr tarballs and extracted dirs.
 #
