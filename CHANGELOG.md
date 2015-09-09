@@ -1,4 +1,14 @@
 
+## 2015-09-02 Release 0.3.1
+### Summary
+Hotfix
+
+### Changed
+ - Fixed a dependancy issue causing a fatal installation error.
+
+### Known Issues
+ - Solr service does not start.  Requires a manual ```service solr start```
+
 ## 2015-09-02 Release 0.3.2
 ### Summary
 Hotfix
