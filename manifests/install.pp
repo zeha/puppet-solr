@@ -59,6 +59,7 @@ class solr::install {
     destination => $tarball,
     timeout     => 0,
     verbose     => false,
+    require     => File [$solr::solr_downloads],
   }
 
   # extract zip
