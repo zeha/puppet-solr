@@ -1,0 +1,4 @@
+
+# puppet forge modules
+mod 'puppetlabs/stdlib'          , '4.9.0'
+mod 'maestrodev/wget'            , '1.7.1'

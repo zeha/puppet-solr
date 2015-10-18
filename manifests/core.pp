@@ -59,31 +59,31 @@ define solr::core (
     command => "/bin/cp ${solr::basic_dir}/synonyms.txt ${conf_dir}/.",
     user    => $solr::solr_user,
     creates => "${conf_dir}/synonyms.txt",
-    require => Exec ["${core_name}_copy_solrconfig"],
+    require => Exec["${core_name}_copy_solrconfig"],
   }
   exec {"${core_name}_copy_protwords":
     command => "/bin/cp ${solr::basic_dir}/protwords.txt ${conf_dir}/.",
     user    => $solr::solr_user,
     creates => "${conf_dir}/protwords.txt",
-    require => Exec ["${core_name}_copy_synonyms"],
+    require => Exec["${core_name}_copy_synonyms"],
   }
   exec {"${core_name}_copy_stopwords":
     command => "/bin/cp ${solr::basic_dir}/stopwords.txt ${conf_dir}/.",
     user    => $solr::solr_user,
     creates => "${conf_dir}/stopwords.txt",
-    require => Exec ["${core_name}_copy_protwords"],
+    require => Exec["${core_name}_copy_protwords"],
   }
   exec {"${core_name}_copy_lang":
     command => "/bin/cp -r ${solr::basic_dir}/lang ${conf_dir}/.",
     user    => $solr::solr_user,
     creates => "${conf_dir}/lang/stopwords_en.txt",
-    require => Exec ["${core_name}_copy_stopwords"],
+    require => Exec["${core_name}_copy_stopwords"],
   }
   exec {"${core_name}_copy_currency":
     command => "/bin/cp ${solr::basic_dir}/currency.xml ${conf_dir}/.",
     user    => $solr::solr_user,
     creates => "${conf_dir}/currency.xml",
-    require => Exec ["${core_name}_copy_lang"],
+    require => Exec["${core_name}_copy_lang"],
   }
 
   file {$schema_file:
@@ -91,7 +91,7 @@ define solr::core (
     target  => $schema_src_file,
     owner   => $solr::solr_user,
     group   => $solr::solr_user,
-    require => Exec ["${core_name}_copy_currency"],
+    require => Exec["${core_name}_copy_currency"],
   }
 
   file {"${dest_dir}/core.properties":
@@ -105,6 +105,6 @@ dataDir=data"),
   }
 
   anchor {"solr::core::${core_name}::end":
-    require => File ["${dest_dir}/core.properties"],
+    require => File["${dest_dir}/core.properties"],
   }
 }

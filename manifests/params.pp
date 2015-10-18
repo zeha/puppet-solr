@@ -49,12 +49,12 @@ class solr::params (
   # OS Specific configuration
   case $::osfamily {
       'redhat': {
-        $required_packages  = ['java-1.7.0-openjdk','unzip']
+        $required_packages  = ['java-1.7.0-openjdk','unzip','lsof']
         $java_home = '/usr/lib/jvm/jre-1.7.0'
 
       }
       'debian':{
-        $required_packages = ['openjdk-7-jre','unzip']
+        $required_packages = ['openjdk-7-jre','unzip','lsof']
         $java_home = '/usr/lib/jvm/java-7-openjdk-amd64/jre'
       }
       default: {

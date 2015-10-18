@@ -1,10 +1,16 @@
+## 2015-10-19 Release 0.3.2
+### Summary
+Added Package
+
+### Changed
+ - [Issue #2](https://jira.landcareresearch.co.nz/browse/DEVOPSPN-359) - added package lsof.
 
 ## 2015-09-02 Release 0.3.1
 ### Summary
 Hotfix
 
 ### Changed
- - Fixed a dependancy issue causing a fatal installation error.
+ - Fixed a dependency issue causing a fatal installation error.
 
 ### Known Issues
  - Solr service does not start.  Requires a manual ```service solr start```

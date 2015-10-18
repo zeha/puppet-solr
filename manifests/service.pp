@@ -19,6 +19,6 @@ class solr::service {
     require => Anchor['solr::service::begin'],
   }
   anchor {'solr::service::end':
-    require => Service ['solr'],
+    require => Service['solr'],
   }
 }

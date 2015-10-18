@@ -45,12 +45,12 @@ class solr::install {
     ensure  => directory,
     owner   => $solr::solr_user,
     group   => $solr::solr_user,
-    require => User [$solr::solr_user],
+    require => User[$solr::solr_user],
   }
 
   file { $solr::solr_downloads:
     ensure  => directory,
-    require => File [$solr::solr_home],
+    require => File[$solr::solr_home],
   }
 
   # download and unpackage solr
@@ -59,7 +59,7 @@ class solr::install {
     destination => $tarball,
     timeout     => 0,
     verbose     => false,
-    require     => File [$solr::solr_downloads],
+    require     => File[$solr::solr_downloads],
   }
 
   # extract zip
@@ -74,7 +74,7 @@ class solr::install {
     command     => "/bin/cp -r ${solr::solr_home_src}/* \
 ${solr::solr_home}",
     refreshonly => true,
-    subscribe   => Exec ['extract solr'],
+    subscribe   => Exec['extract solr'],
   }
 
   # change permissions
@@ -87,7 +87,6 @@ ${solr::solr_home}",
 
 
   anchor{'solr::install::end':
-    #require => Exec['move collection1'],
-    require => Exec ['change permissions']
+    require => Exec['change permissions']
   }
 }

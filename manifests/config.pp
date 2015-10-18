@@ -64,7 +64,7 @@ redhat based system")
   file { $solr::solr_env:
     ensure  => file,
     content => template('solr/solr.in.sh.erb'),
-    require => File [$solr::solr_logs],
+    require => File[$solr::solr_logs],
   }
 
   # setup the service level entry
@@ -72,11 +72,10 @@ redhat based system")
     ensure  => file,
     mode    => '0755',
     content => template('solr/solr.sh.erb'),
-    require => File [$solr::solr_env],
+    require => File[$solr::solr_env],
   }
 
   anchor {'solr::config::end':
-    require => File ['/etc/init.d/solr'],
+    require => File['/etc/init.d/solr'],
   }
-
 }
