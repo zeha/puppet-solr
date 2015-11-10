@@ -41,10 +41,16 @@ class solr::params (
 
   $url       = 'http://mirrors.gigenet.com/apache/lucene/solr'
   $version   = '5.3.0'
+
   $solr_user = 'solr'
   $solr_host = '127.0.0.1'
   $solr_port = '8983'
   $timeout   = '120'
+  $solr_heap = '512m'
+
+  $set_gc_logging = true
+  $param_gc_logging = 'GC_LOG_OPTS="-verbose:gc -XX:+PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps \
+  -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime"'
 
   # OS Specific configuration
   case $::osfamily {
@@ -62,4 +68,13 @@ class solr::params (
 redhat based system")
       }
   }
+
+  if $::$set_gc_logging {
+      $param_gc_logging = 'GC_LOG_OPTS="-verbose:gc -XX:+PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps \
+  -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime"'
+  }
+  else {
+      $param_gc_logging = ''
+  }
+
 }

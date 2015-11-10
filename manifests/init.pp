@@ -72,6 +72,10 @@ class solr (
   $solr_host = $solr::params::solr_host,
   $solr_port = $solr::params::solr_port,
   $timeout   = $solr::params::timeout,
+  $solr_heap = $solr::params::solr_heap,
+  $set_gc_logging = $solr::params::set_gc_logging,
+  $param_gc_logging = $solr::params::param_gc_logging,
+
 ) inherits ::solr::params{
 
   ## === Variables === ##
