@@ -46,8 +46,7 @@ class solr::params (
   $solr_host = '127.0.0.1'
   $solr_port = '8983'
   $timeout   = '120'
-  $solr_heap = '"1024m"'
-
+  $solr_heap = '1024m'
 
   # OS Specific configuration
   case $::osfamily {
@@ -65,6 +64,5 @@ class solr::params (
 redhat based system")
       }
   }
-
 
 }
