@@ -73,8 +73,6 @@ class solr (
   $solr_port          = $solr::params::solr_port,
   $timeout            = $solr::params::timeout,
   $solr_heap          = $solr::params::solr_heap,
-
-
 ) inherits ::solr::params{
 
   ## === Variables === ##
