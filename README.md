@@ -53,6 +53,9 @@ Default Port: 8983
 The timeout used for downloading the solr package.
 Default: 120 seconds
 
+#### `solr_heap`
+The heap size used by Jetty
+Default size: 1024m
 ## Usage
 
 ### Simple Use Case
