@@ -66,13 +66,13 @@
 # GPL-3.0+
 #
 class solr (
-  $url                = $solr::params::url,
-  $version            = $solr::params::version,
-  $solr_user          = $solr::params::solr_user,
-  $solr_host          = $solr::params::solr_host,
-  $solr_port          = $solr::params::solr_port,
-  $timeout            = $solr::params::timeout,
-  $solr_heap          = $solr::params::solr_heap,
+  $url       = $solr::params::url,
+  $version   = $solr::params::version,
+  $solr_user = $solr::params::solr_user,
+  $solr_host = $solr::params::solr_host,
+  $solr_port = $solr::params::solr_port,
+  $timeout   = $solr::params::timeout,
+  $solr_heap = $solr::params::solr_heap,
 ) inherits ::solr::params{
 
   ## === Variables === ##
