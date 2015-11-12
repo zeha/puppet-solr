@@ -78,4 +78,5 @@ redhat based system")
   anchor {'solr::config::end':
     require => File['/etc/init.d/solr'],
   }
+
 }
