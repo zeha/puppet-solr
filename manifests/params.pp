@@ -63,5 +63,4 @@ class solr::params (
 redhat based system")
       }
   }
-
 }
