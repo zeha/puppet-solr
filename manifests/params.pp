@@ -63,4 +63,11 @@ class solr::params (
 redhat based system")
       }
   }
+
+  if ($::osfamily == 'redhat' and $::lsbmajdistrelease > 7) {
+    $is_systemd = true
+  } else {
+    $is_systemd = false
+  }
+
 }
