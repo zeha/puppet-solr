@@ -57,17 +57,80 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+start () {
+    echo -n "Starting solr..."
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr start" - $RUNAS
+
+    RETVAL=$?
+    if [ $RETVAL = 0 ]
+    then
+        echo "done."
+    else
+        echo "failed. See error code for more information."
+    fi
+    return $RETVAL
+}
+
+stop () {
+    echo -n "Stopping solr..."
+
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr stop" - $RUNAS
+    RETVAL=$?
+
+    if [ $RETVAL = 0 ]
+    then
+        echo "Done."
+    else
+        echo "Failed. See error code for more information."
+    fi
+    return $RETVAL
+}
+
+restart () {
+
+    echo -n "Restart solr..."
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr restart" - $RUNAS
+    RETVAL=$?
+
+    if [ $RETVAL = 0 ]
+        then
+            echo "Done."
+        else
+            echo "Failed. See error code for more information."
+        fi
+        return $RETVAL
+}
+
+status () {
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr status" - $RUNAS
+    RETVAL=$?
+
+    if [ $RETVAL = 0 ]
+        then
+            echo "Done."
+        else
+            echo "Failed. See error code for more information."
+        fi
+        return $RETVAL
+}
+
 case "$1" in
-  start|stop|restart|status)
-    SOLR_CMD=$1
+    start)
+        start
     ;;
-  *)
-    echo "Usage: $0 {start|stop|restart|status}"
-    exit
+    status)
+        status
+    ;;
+    stop)
+        stop
+    ;;
+    restart)
+        restart
+    ;;
+    *)
+        echo $"Usage: solr {start|status|stop|restart}"
+        exit 3
+    ;;
 esac
 
-if [ -n "$RUNAS" ]; then
-  su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr $SOLR_CMD" - $RUNAS
-else
-  SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr $SOLR_CMD
-fi
+exit $RETVAL
