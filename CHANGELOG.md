@@ -1,3 +1,11 @@
+## 2016-03-21 Release 0.3.3
+### Summary
+Added systemd and addition options
+
+### Changed
+ - Added support for systemd
+ - Added new parameter to set the jetty heap size
+
 ## 2015-10-19 Release 0.3.2
 ### Summary
 Added Package
