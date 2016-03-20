@@ -75,15 +75,14 @@ redhat based system")
     require => File[$solr::solr_env],
   }
 
-  anchor {'solr::config::end':
-    require => File['/etc/init.d/solr'],
-  }
-
   if $solr::params::is_systemd {
     class { '::systemd':
       subscribe => File['/etc/init.d/solr'],
-      before => anchor ['solr::config::end']
+      before    => Anchor['solr::config::end']
     }
+  }
+  anchor {'solr::config::end':
+    require => File['/etc/init.d/solr'],
   }
 
 }

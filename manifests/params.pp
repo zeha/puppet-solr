@@ -29,6 +29,10 @@
 #   The timeout used for downloading the solr package.
 #   Default: 120 seconds.
 #
+# [*solr_heap*]
+#   The heap size used by jetty.
+#   Default: 512m
+#
 # === Examples
 #
 #
@@ -45,7 +49,7 @@ class solr::params (
   $solr_host = '127.0.0.1'
   $solr_port = '8983'
   $timeout   = '120'
-  $solr_heap = '1024m'
+  $solr_heap = '512m'
 
   # OS Specific configuration
   case $::osfamily {
