@@ -1,4 +1,4 @@
-## 2016-03-21 Release 0.3.3
+## 2016-03-21 Release 0.3.6
 ### Summary
 Added systemd and addition options
 
