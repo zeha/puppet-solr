@@ -38,6 +38,7 @@ define solr::shared_lib (
       $lib_name_array = split($url,'/')
       $lib_name       = $lib_name_array[-1]
     }
+    
     wget::fetch{"${title}_download_shared_lib":
       source      => $url,
       destination => "${path}/${lib_name}",

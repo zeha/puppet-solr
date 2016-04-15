@@ -22,10 +22,8 @@
 #
 class solr::install {
 
-  anchor{'solr::install::begin':}
-
   # == variables == #
-  $tarball        = "${solr::solr_downloads}/solr_${solr::version}.tgz"
+  $tarball = "${solr::solr_downloads}/solr_${solr::version}.tgz"
 
   # install requirements
   ensure_packages($solr::params::required_packages)
@@ -36,8 +34,7 @@ class solr::install {
     home       => $solr::solr_home,
     managehome => false,
     shell      => '/bin/bash',
-    require    => [ Package[$solr::params::required_packages],
-                    Anchor['solr::install::begin']],
+    require    => Package[$solr::params::required_packages],
   }
 
   # directory to store downloaded solr versions
@@ -71,22 +68,16 @@ class solr::install {
 
   # copy directory
   exec {'copy solr':
-    command     => "/bin/cp -r ${solr::solr_home_src}/* \
-${solr::solr_home}",
+    command     => "/bin/cp -r ${solr::solr_home_src}/* ${solr::solr_home}",
     refreshonly => true,
     subscribe   => Exec['extract solr'],
   }
 
   # change permissions
   exec {'change permissions':
-    command     => "/bin/chown ${solr::solr_user}:${solr::solr_user} -R\
- ${solr::solr_home}",
+    command     => "/bin/chown ${solr::solr_user}:${solr::solr_user} -R ${solr::solr_home}",
     refreshonly => true,
     subscribe   => Exec['copy solr'],
   }
 
-
-  anchor{'solr::install::end':
-    require => Exec['change permissions']
-  }
 }

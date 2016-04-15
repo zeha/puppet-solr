@@ -17,37 +17,24 @@
 #
 class solr::config {
 
-  anchor{'solr::config::begin':}
-
-  # make OS specific changes
-  case $::osfamily {
-    'redhat': { }
-    'debian':{
-      file {'/usr/java':
-        ensure  => directory,
-        require => Anchor['solr::config::begin'],
-      }
-
-      # setup a sym link for java home
-      file {'/usr/java/default':
-        ensure  => 'link',
-        target  => '/usr/lib/jvm/java-7-openjdk-amd64',
-        require => File['/usr/java'],
-        before  => File[$solr::solr_env],
-      }
+  if $::osfamily == 'debian' {
+    file { '/usr/java':
+      ensure  => directory,
     }
-    default: {
-      fail("Unsupported OS ${::osfamily}.  Please use a debian or \
-redhat based system")
+
+    # setup a sym link for java home
+    file { '/usr/java/default':
+      ensure  => 'link',
+      target  => '/usr/lib/jvm/java-7-openjdk-amd64',
+      require => File['/usr/java'],
     }
   }
 
   # create the directories
-  file {$solr::solr_logs:
-    ensure  => directory,
-    owner   => $solr::solr_user,
-    group   => $solr::solr_user,
-    require => Anchor['solr::config::begin'],
+  file { $::solr::solr_logs:
+    ensure => directory,
+    owner  => $solr::solr_user,
+    group  => $solr::solr_user,
   }
 
   # setup logging
@@ -61,28 +48,20 @@ redhat based system")
 #  }
 
   # setup default jetty configuration file.
-  file { $solr::solr_env:
+  file { $::solr::solr_env:
     ensure  => file,
     content => template('solr/solr.in.sh.erb'),
-    require => File[$solr::solr_logs],
   }
 
-  # setup the service level entry
-  file {'/etc/init.d/solr':
+  file { '/etc/init.d/solr':
     ensure  => file,
     mode    => '0755',
     content => template('solr/solr.sh.erb'),
-    require => File[$solr::solr_env],
   }
 
-  if $solr::params::is_systemd {
-    class { '::systemd':
-      subscribe => File['/etc/init.d/solr'],
-      before    => Anchor['solr::config::end']
-    }
+  # setup the service level entry
+  if $::solr::params::is_systemd {
+    include '::systemd'
+    File['/etc/init.d/solr'] ~> Exec['systemctl-daemon-reload']
   }
-  anchor {'solr::config::end':
-    require => File['/etc/init.d/solr'],
-  }
-
 }

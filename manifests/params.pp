@@ -42,7 +42,6 @@
 #
 class solr::params (
 ){
-
   $url       = 'http://mirrors.gigenet.com/apache/lucene/solr'
   $version   = '5.3.0'
   $solr_user = 'solr'
@@ -53,25 +52,27 @@ class solr::params (
 
   # OS Specific configuration
   case $::osfamily {
-      'redhat': {
-        $required_packages  = ['java-1.7.0-openjdk','unzip','lsof']
-        $java_home = '/usr/lib/jvm/jre-1.7.0'
-
+    'redhat': {
+      $required_packages  = ['java-1.7.0-openjdk','unzip','lsof']
+      $java_home = '/usr/lib/jvm/jre-1.7.0'
+      if $::lsbmajdistrelease > 7 {
+        $is_systemd = true
+      } else {
+        $is_systemd = false
       }
-      'debian':{
-        $required_packages = ['openjdk-7-jre','unzip','lsof']
-        $java_home = '/usr/lib/jvm/java-7-openjdk-amd64/jre'
+    }
+    'debian':{
+      $required_packages = ['openjdk-7-jre','unzip','lsof']
+      $java_home = '/usr/lib/jvm/java-7-openjdk-amd64/jre'
+      if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') >= 0 {
+        $is_systemd = true
+      } else {
+        $is_systemd = false
       }
-      default: {
-        fail("Unsupported OS ${::osfamily}.  Please use a debian or \
-redhat based system")
-      }
-  }
-
-  if ($::osfamily == 'redhat' and $::lsbmajdistrelease > 7) {
-    $is_systemd = true
-  } else {
-    $is_systemd = false
+    }
+    default: {
+      fail("Unsupported OS ${::osfamily}.  Please use a debian or redhat based system")
+    }
   }
 
 }
