@@ -73,13 +73,13 @@ class solr (
   $solr_port = $solr::params::solr_port,
   $timeout   = $solr::params::timeout,
   $solr_heap = $solr::params::solr_heap,
+  $solr_home = $solr::params::solr_home,
+  $solr_logs = "${solr_home}/logs"
 ) inherits ::solr::params{
 
   ## === Variables === ##
-  $solr_home      = '/opt/solr'
   $solr_downloads = '/opt/solr_downloads'
   $solr_home_src  = "${solr_downloads}/solr-${version}"
-  $solr_logs      = "${solr_home}/logs"
   $solr_env       = '/etc/default/solr'
   $solr_core_home = "${solr_home}/server/solr"
   $basic_dir      = "${solr::solr_core_home}/configsets/basic_configs/conf"
