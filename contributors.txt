@@ -1,3 +1,4 @@
 Michael Speth <speth@landcareresearch.co.nz>
 Lars Wiedenhoeft <lars.wiedenhoeft@gfk.com>
 Justin Lambert <https://bitbucket.org/jlambert121/>
+Tyler Ward <https://bitbucket.org/twardnw/>

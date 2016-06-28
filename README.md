@@ -58,6 +58,21 @@ Default: 120 seconds
 #### `solr_heap`
 The heap size used by Jetty
 Default size: 1024m
+
+#### `cores`
+An array of hashes that define a core which will be created with the
+create_resources function.
+See type solr::core for details.
+Default: {}
+
+#### `solr_home`
+The home directory for solr.
+Default: '/opt/solr'
+
+#### `solr_logs`
+The directory for the solr logs.
+Default: "${solr_home}/logs"
+
 ## Usage
 
 ### Simple Use Case

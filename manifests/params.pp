@@ -46,6 +46,7 @@ class solr::params (
   $solr_port = '8983'
   $timeout   = '120'
   $solr_heap = '512m'
+  $solr_home = '/opt/solr'
 
   # OS Specific configuration
   case $::osfamily {

@@ -37,10 +37,26 @@
 #   The timeout used for downloading the solr package.
 #   Default: 120 seconds.
 #
-# === Variables
+# [*solr_heap*]
+#   The heap size used by jetty.
+#   Default: 512m
+#
+# [*cores*]
+#   An array of hashes that define a core which will be created with the
+#   create_resources function.
+#   See type solr::core for details.
+#   Default: {}
 #
 # [*solr_home*]
 #   The home directory for solr.
+#   Default: '/opt/solr'
+#
+# [*solr_logs*]
+#   The directory for the solr logs.
+#   Default: "${solr_home}/logs"
+#
+# === Variables
+#
 #
 # [*solr_downloads*]
 #   Contains the solr tarballs and extracted dirs.
@@ -74,13 +90,13 @@ class solr (
   $timeout   = $solr::params::timeout,
   $solr_heap = $solr::params::solr_heap,
   $cores     = {},
+  $solr_home = $solr::params::solr_home,
+  $solr_logs = "${solr_home}/logs"
 ) inherits ::solr::params{
 
   ## === Variables === ##
-  $solr_home      = '/opt/solr'
   $solr_downloads = '/opt/solr_downloads'
   $solr_home_src  = "${solr_downloads}/solr-${version}"
-  $solr_logs      = "${solr_home}/logs"
   $solr_env       = '/etc/default/solr'
   $solr_core_home = "${solr_home}/server/solr"
   $basic_dir      = "${solr::solr_core_home}/configsets/basic_configs/conf"

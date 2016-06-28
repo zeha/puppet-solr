@@ -4,7 +4,9 @@
 Core Config Customization
 
 ### Changed
-  - Added the flexibility of specifying additional core configuration paramters.
+  - Added the flexibility of specifying additional core configuration parameters.
+  - Added parameters for changing the home and logs dirs.
+  - Changed default solr version to 5.5.2
 
 ## 2016-03-21 Release 0.3.6
 ### Summary
