@@ -86,13 +86,26 @@ class solr (
   $basic_dir      = "${solr::solr_core_home}/configsets/basic_configs/conf"
   $solr_lib_dir   = "${solr_home}/server/solr-webapp/webapp/WEB-INF/lib"
 
-  anchor { '::solr::begin': } ->
-  class { '::solr::install': } ->
-  class { '::solr::config': } ~>
-  class { '::solr::service': } ->
-  anchor { '::solr::end': }
+
+  anchor{'solr::begin': }
+
+  class{'solr::install':
+    require => Anchor['solr::begin'],
+  }
+
+  class{'solr::config':
+    require => Class['solr::install'],
+  }
+
+  class{'solr::service':
+    subscribe => Class['solr::config'],
+  }
 
   if is_hash($cores) {
     create_resources(::solr::core, $cores)
+  }
+
+  anchor{'solr::end':
+    require => Class['solr::service'],
   }
 }

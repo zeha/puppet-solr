@@ -28,6 +28,6 @@ Vagrant.configure("2") do |config|
     puppet.module_path    = ["puppet/modules/", MODULES_REPO]
     puppet.manifests_path = "../tests"
     puppet.manifest_file  = "init.pp"
-    puppet.options        = "--logdest /tmp/vagrant-puppet/logs/puppet.log"
+    #puppet.options        = "--logdest /tmp/vagrant-puppet/logs/puppet.log"
   end
 end

@@ -75,12 +75,44 @@ This module doesn't handle restarting solr for adding new cores.
 ### Parameters
 
 #### `core_name`
-The name of the core (must be unique).
+The name of the core (must be unique).  
 Default: $title
 
+#### `replace`
+Whether or not files should be updated if they are different from the source
+specified.  
+Default: true
+
+#### `currency_src_file`
+The currency file for the core.  It can either be a local file (managed outside
+of this module) or a remote file served through a puppet file server (puppet:///).
+The default is the example currency file.
+
+#### `protwords_src_file`
+The schema file for the core.  It can either be a local file (managed outside
+of this module) or a remote file served through a puppet file server (puppet:///).
+The default is the example protwords file.
+
 #### `schema_src_file`
-The schema file must exist on the file system and should be controlled outside of this module.  This will simply link to the schema file.
-Default: the basic example core's schema.
+The currency file for the core.  It can either be a local file
+(managed outside of this module) or a remote file served through a puppet
+file server (puppet:///).
+The default is the example currency file.
+
+#### `solrconfig_src_file`
+The schema file for the core.  It can either be a local file (managed outside
+of this module) or a remote file served through a puppet file server (puppet:///).
+The default is the example solrconfig file.
+
+#### `stopwords_src_file`
+The schema file for the core.  It can either be a local file (managed outside
+of this module) or a remote file served through a puppet file server (puppet:///).
+The default is the example stopwords file.
+
+#### `synonyms_src_file`
+The schema file for the core.  It can either be a local file (managed outside
+of this module) or a remote file served through a puppet file server (puppet:///).
+The default is the example synonyms file.
 
 ### Example
 

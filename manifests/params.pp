@@ -1,6 +1,6 @@
 # == Class: solr::params
 #
-# Full description of class solr here.
+# The paramteres class for solr.
 #
 # === Variables
 #
@@ -10,7 +10,7 @@
 #
 # [*version*]
 #   The version to install.
-#   Default: '5.3.0'.
+#   Default: '5.5.2'.
 #
 # [*solr_user*]
 #   Run Solr as this user ID (default: solr)
@@ -33,9 +33,6 @@
 #   The heap size used by jetty.
 #   Default: 512m
 #
-# === Examples
-#
-#
 # === Copyright
 #
 # GPL-3.0+
@@ -43,7 +40,7 @@
 class solr::params (
 ){
   $url       = 'http://mirrors.gigenet.com/apache/lucene/solr'
-  $version   = '5.3.0'
+  $version   = '5.5.2'
   $solr_user = 'solr'
   $solr_host = '127.0.0.1'
   $solr_port = '8983'
@@ -64,15 +61,16 @@ class solr::params (
     'debian':{
       $required_packages = ['openjdk-7-jre','unzip','lsof']
       $java_home = '/usr/lib/jvm/java-7-openjdk-amd64/jre'
-      if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') >= 0 {
+      if $::operatingsystem == 'Ubuntu' and
+      versioncmp($::operatingsystemrelease, '15.04') >= 0 {
         $is_systemd = true
       } else {
         $is_systemd = false
       }
     }
     default: {
-      fail("Unsupported OS ${::osfamily}.  Please use a debian or redhat based system")
+      fail("Unsupported OS ${::osfamily}.\
+  Please use a debian or redhat based system")
     }
   }
-
 }

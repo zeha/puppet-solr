@@ -1,3 +1,11 @@
+## 2016-06-28 Release 0.3.7
+
+### Summary
+Core Config Customization
+
+### Changed
+  - Added the flexibility of specifying additional core configuration paramters.
+
 ## 2016-03-21 Release 0.3.6
 ### Summary
 Added systemd and addition options

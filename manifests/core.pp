@@ -14,33 +14,39 @@
 #   Default: true
 #
 # [*currency_src_file*]
-#   The currency file for the core.  It can either be a local file (managed outside
-#   of this module) or a remote file served through a puppet file server (puppet:///).
+#   The currency file for the core.  It can either be a local file
+#   (managed outside of this module) or a remote file served through a puppet
+#   file server (puppet:///).
 #   The default is the example currency file.
 #
 # [*protwords_src_file*]
-#   The schema file for the core.  It can either be a local file (managed outside
-#   of this module) or a remote file served through a puppet file server (puppet:///).
+#   The schema file for the core.  It can either be a local file
+#   (managed outside of this module) or a remote file served through a puppet
+#   file server (puppet:///).
 #   The default is the example protwords file.
 #
 # [*schema_src_file*]
-#   The schema file for the core.  It can either be a local file (managed outside
-#   of this module) or a remote file served through a puppet file server (puppet:///).
+#   The schema file for the core.  It can either be a local file
+#   (managed outside of this module) or a remote file served through a puppet
+#   file server (puppet:///).
 #   The default is the example schema file.
 #
 # [*solrconfig_src_file*]
-#   The schema file for the core.  It can either be a local file (managed outside
-#   of this module) or a remote file served through a puppet file server (puppet:///).
+#   The schema file for the core.  It can either be a local file
+#   (managed outside of this module) or a remote file served through a puppet
+#   file server (puppet:///).
 #   The default is the example solrconfig file.
 #
 # [*stopwords_src_file*]
-#   The schema file for the core.  It can either be a local file (managed outside
-#   of this module) or a remote file served through a puppet file server (puppet:///).
+#   The schema file for the core.  It can either be a local file
+#   (managed outside of this module) or a remote file served through a puppet
+#   file server (puppet:///).
 #   The default is the example stopwords file.
 #
 # [*synonyms_src_file*]
-#   The schema file for the core.  It can either be a local file (managed outside
-#   of this module) or a remote file served through a puppet file server (puppet:///).
+#   The schema file for the core.  It can either be a local file
+#   (managed outside of this module) or a remote file served through a puppet
+#   file server (puppet:///).
 #   The default is the example synonyms file.
 #
 # === Variables
@@ -66,22 +72,33 @@ define solr::core (
   $synonyms_src_file    = "${::solr::basic_dir}/synonyms.txt",
 ){
 
+  anchor{"solr::core::${title}::begin":}
+
   # The base class must be included first because core uses variables from
   # base class
   if ! defined(Class['solr']) {
-    fail('You must include the solr base class before using any solr defined resources')
+    fail("You must include the solr base class before using any\
+ solr defined resources")
   }
 
   $dest_dir    = "${::solr::solr_core_home}/${core_name}"
   $conf_dir    = "${dest_dir}/conf"
   $schema_file = "${conf_dir}/schema.xml"
 
-  # create the conf directory
-  file { [$dest_dir,$conf_dir]:
+  file { $dest_dir:
     ensure  => directory,
     owner   => $::solr::solr_user,
     group   => $::solr::solr_user,
-    require => Class[Solr::Config]
+    require => [Class[Solr::Config],
+                Anchor["solr::core::${title}::begin"]],
+  }
+
+  # create the conf directory
+  file { $conf_dir:
+    ensure  => directory,
+    owner   => $::solr::solr_user,
+    group   => $::solr::solr_user,
+    require => File[$dest_dir],
   }
 
   file { "${conf_dir}/solrconfig.xml":
@@ -100,7 +117,7 @@ define solr::core (
     group   => $::solr::solr_user,
     source  => $synonyms_src_file,
     replace => $replace,
-    require => File[$conf_dir],
+    require => File["${conf_dir}/solrconfig.xml"],
     notify  => Class[Solr::Service],
   }
 
@@ -110,7 +127,7 @@ define solr::core (
     group   => $::solr::solr_user,
     source  => $protwords_src_file,
     replace => $replace,
-    require => File[$conf_dir],
+    require => File["${conf_dir}/synonyms.txt"],
     notify  => Class[Solr::Service],
   }
 
@@ -120,7 +137,7 @@ define solr::core (
     group   => $::solr::solr_user,
     source  => $stopwords_src_file,
     replace => $replace,
-    require => File[$conf_dir],
+    require => File["${conf_dir}/protwords.txt"],
     notify  => Class[Solr::Service],
   }
 
@@ -128,7 +145,7 @@ define solr::core (
     command => "/bin/cp -r ${::solr::basic_dir}/lang ${conf_dir}/.",
     user    => $::solr::solr_user,
     creates => "${conf_dir}/lang/stopwords_en.txt",
-    require => File[$conf_dir],
+    require => File["${conf_dir}/stopwords.txt"],
     notify  => Class[Solr::Service],
   }
 
@@ -138,7 +155,7 @@ define solr::core (
     group   => $::solr::solr_user,
     source  => $currency_src_file,
     replace => $replace,
-    require => File[$conf_dir],
+    require => Exec["${core_name}_copy_lang"],
     notify  => Class[Solr::Service],
   }
 
@@ -148,7 +165,7 @@ define solr::core (
     group   => $::solr::solr_user,
     source  => $schema_src_file,
     replace => $replace,
-    require => File[$conf_dir],
+    require => File["${conf_dir}/currency.xml"],
     notify  => Class[Solr::Service],
   }
 
@@ -159,6 +176,7 @@ define solr::core (
     'replace' => $replace,
     'require' => File[$conf_dir],
     'notify'  => Class[Solr::Service],
+    'before'  => File["${dest_dir}/core.properties"],
   }
   create_resources(file, other_files($other_files, $conf_dir), $defaults)
 
@@ -169,6 +187,10 @@ define solr::core (
 config=solrconfig.xml
 schema=schema.xml
 dataDir=data"),
-    require => File[$dest_dir],
+    require => File[$schema_file],
+  }
+
+  anchor{"solr::core::${title}::end":
+    require => File["${dest_dir}/core.properties"],
   }
 }

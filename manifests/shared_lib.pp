@@ -31,20 +31,28 @@ define solr::shared_lib (
   $web_user     = undef,
   $web_password = undef,
 ){
-    # variables
-    if $filename {
-      $lib_name       = $filename
-    }else {
-      $lib_name_array = split($url,'/')
-      $lib_name       = $lib_name_array[-1]
-    }
-    
-    wget::fetch{"${title}_download_shared_lib":
-      source      => $url,
-      destination => "${path}/${lib_name}",
-      user        => $web_user,
-      password    => $web_password,
-      timeout     => 0,
-      verbose     => false,
-    }
+
+  anchor{"solr::shared_lib::${title}::begin":}
+
+  # variables
+  if $filename {
+    $lib_name       = $filename
+  }else {
+    $lib_name_array = split($url,'/')
+    $lib_name       = $lib_name_array[-1]
+  }
+
+  wget::fetch{"${title}_download_shared_lib":
+    source      => $url,
+    destination => "${path}/${lib_name}",
+    user        => $web_user,
+    password    => $web_password,
+    timeout     => 0,
+    verbose     => false,
+    require     => Anchor["solr::shared_lib::${title}::begin"],
+  }
+
+  anchor{"solr::shared_lib::${title}::end":
+    require => Wget::Fetch["${title}_download_shared_lib"],
+  }
 }

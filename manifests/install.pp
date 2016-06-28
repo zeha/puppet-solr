@@ -1,6 +1,6 @@
 # == Class: solr::install
 #
-# Full description of class solr here.
+# Installs the packages and software that support solr.
 #
 # === Parameters
 #
@@ -10,17 +10,13 @@
 # [*tarball*]
 #   The destination full path to the solr tarball.
 #
-# === Examples
-#
-#  class { 'solr':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
-#
 # === Copyright
 #
 # GPL-3.0+
 #
 class solr::install {
+
+  anchor{'solr::install::begin':}
 
   # == variables == #
   $tarball = "${solr::solr_downloads}/solr_${solr::version}.tgz"
@@ -34,7 +30,8 @@ class solr::install {
     home       => $solr::solr_home,
     managehome => false,
     shell      => '/bin/bash',
-    require    => Package[$solr::params::required_packages],
+    require    => [Package[$solr::params::required_packages],
+                  Anchor['solr::install::begin']],
   }
 
   # directory to store downloaded solr versions
@@ -75,9 +72,13 @@ class solr::install {
 
   # change permissions
   exec {'change permissions':
-    command     => "/bin/chown ${solr::solr_user}:${solr::solr_user} -R ${solr::solr_home}",
+    command     =>
+    "/bin/chown ${solr::solr_user}:${solr::solr_user} -R ${solr::solr_home}",
     refreshonly => true,
     subscribe   => Exec['copy solr'],
   }
 
+  anchor{'solr::install::end':
+    require => Exec['change permissions'],
+  }
 }
