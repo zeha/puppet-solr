@@ -22,56 +22,78 @@ This module utilizes the params concept so all default parameters are configured
 ### What solr affects
 
 Installs the following packages
-* java 7 jre.
+* java 8 jre.
+
+Installs and configures SOLR
 
 ## Configuration
 
-solr::params class is used for configuration, but can be overridden with the specified parameters.
+solr::params class is used for default configuration, but can be overridden with the specified parameters.
 
 ### Parameters
 
 #### `url`
 The url of the source repository for apache jetty.
+NOTE: If you are installing an older version you may need to specify: 'http://archive.apache.org/dist/lucene/solr/'
 Default: 'http://mirrors.gigenet.com/apache/lucene/solr',
+
+#### `timeout`
+The timeout used for downloading the solr package.
+Default: 120 seconds
 
 #### `version`
 The version to install.
-Default: '4.10.4'.
+Default: '6.1.0'.
 
 #### `solr_user`
 Run Solr as this user ID (default: solr)
-Note, creates this user.
+Note, creates this user if it doesn't exist.
 
 #### `solr_host`
-Listen to connections from this network host
-Use 0.0.0.0 as host to accept all connections.
+Listen to connections from this network solr_host
+Use 0.0.0.0 as solr_host to accept all connections.
 Default: 127.0.0.1
 
 #### `solr_port`
 The network port used by Jetty
 Default Port: 8983
 
-#### `timeout`
-The timeout used for downloading the solr package.
-Default: 120 seconds
-
 #### `solr_heap`
 The heap size used by Jetty
-Default size: 1024m
+Default size: 512m
+
+
+#### `solr_downloads`
+The download directory, where solr will be downloaded to.
+Default: '/opt/solr_downloads'
+
+#### `install_dir`
+The install directory for solr.
+Default: '/opt/solr'
+
+#### `var_dir`
+The data directory for solr.
+Default: '/var/solr'
+
+#### `solr_logs`
+The directory for the solr logs.
+Default: "/var/log/solr"
+
+#### `java_home`
+The JAVA_HOME setting.
+Default: (os specific)
+  * Debian/Ubuntu: '/usr/lib/jvm/java-8-openjdk-amd64/jre'
+  * CentOS/RHEL: '/usr/lib/jvm/jre-1.8.0'
+
+#### `solr_environment`
+ARRAY - Bash type environment variables passed directly into the SOLR server startup environment
+Default: []
 
 #### `cores`
 An array of hashes that define a core which will be created with the
 create_resources function.
 See type solr::core for details.
 Default: {}
-
-#### `solr_home`
-The home directory for solr.
-Default: '/opt/solr'
-
-#### `solr_logs`
-The directory for the solr logs.
-Default: "${solr_home}/logs"
 
 ## Usage
 

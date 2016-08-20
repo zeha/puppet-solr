@@ -66,7 +66,7 @@ define solr::core (
   $currency_src_file    = "${::solr::basic_dir}/currency.xml",
   $other_files          = [],
   $protwords_src_file   = "${::solr::basic_dir}/protwords.txt",
-  $schema_src_file      = "${::solr::basic_dir}/schema.xml",
+  $schema_src_file      = "${::solr::basic_dir}/${solr::schema_filename}",
   $solrconfig_src_file  = "${::solr::basic_dir}/solrconfig.xml",
   $stopwords_src_file   = "${::solr::basic_dir}/stopwords.txt",
   $synonyms_src_file    = "${::solr::basic_dir}/synonyms.txt",
@@ -83,7 +83,7 @@ define solr::core (
 
   $dest_dir    = "${::solr::solr_core_home}/${core_name}"
   $conf_dir    = "${dest_dir}/conf"
-  $schema_file = "${conf_dir}/schema.xml"
+  $schema_file = "${conf_dir}/${solr::schema_filename}"
 
   file { $dest_dir:
     ensure  => directory,
@@ -185,7 +185,7 @@ define solr::core (
     content => inline_template(
 "name=${core_name}
 config=solrconfig.xml
-schema=schema.xml
+schema=${solr::schema_filename}
 dataDir=data"),
     require => File[$schema_file],
   }
