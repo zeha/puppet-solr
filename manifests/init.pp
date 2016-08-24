@@ -118,8 +118,8 @@ class solr (
   $solr_lib_dir   = "${solr_server}/solr-webapp/webapp/WEB-INF/lib"
 
 
-  # The schema filename is managed-schema in 6.0+
-  if versioncmp($solr::version, '6.0.0') >= 0 {
+  # The schema filename is managed-schema in 5.5+
+  if versioncmp($solr::version, '5.5.0') >= 0 {
     $schema_filename = 'managed-schema'
   } else {
     $schema_filename = 'schema.xml'
