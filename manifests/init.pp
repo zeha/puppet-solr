@@ -105,6 +105,7 @@ class solr (
   $java_home        = $solr::params::java_home,
   $solr_environment = [],
   $cores            = {},
+  $required_packages= $solr::params::required_packages,
 ) inherits ::solr::params{
 
   ## === Variables === ##
