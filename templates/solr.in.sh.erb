@@ -128,5 +128,5 @@ SOLR_PORT=<%= scope['::solr::solr_port'] -%>
 
 <% if !scope['::solr::solr_environment'].empty? -%>
 # solr::environment
-<% scope['::solr::solr_environment'].join("\n") -%>
+<%= scope['::solr::solr_environment'].join("\n") -%>
 <% end -%>

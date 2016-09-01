@@ -22,7 +22,7 @@ class solr::install {
   $tarball = "${solr::solr_downloads}/solr-${solr::version}.tgz"
 
   # install requirements
-  ensure_packages($solr::params::required_packages)
+  ensure_packages($solr::required_packages)
 
   ## create a solr user
   user {$solr::solr_user:
@@ -31,7 +31,7 @@ class solr::install {
     system     => true,
     managehome => true,
     shell      => '/bin/bash',
-    require    => [Package[$solr::params::required_packages],
+    require    => [Package[$solr::required_packages],
                   Anchor['solr::install::begin']],
   }
 
