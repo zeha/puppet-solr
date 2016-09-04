@@ -47,7 +47,7 @@ class solr::install {
     ensure  => directory,
     require => Anchor['solr::install::begin'],
   }
-  
+
   file { $solr::install_dir:
     ensure  => directory,
     require => Anchor['solr::install::begin'],
