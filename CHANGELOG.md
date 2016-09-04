@@ -1,3 +1,15 @@
+## 20160-8-05 Release 0.4.0
+
+### Summary
+Updated for Solr6
+
+### Changed
+   - Installation uses the production installation script provided by solr.
+   - Switched to using Java 8.
+   - Debian based distros use Oracle Java 8 and redhat based use openjdk.
+   - Java 7 no longer supported.
+   - Added scripts for testing all supported versions via vagrant.
+
 ## 2016-06-28 Release 0.3.7
 
 ### Summary

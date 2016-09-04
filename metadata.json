@@ -1,7 +1,7 @@
 {
   "name":         "landcareresearch-solr",
   "version":      "0.2.1",
-  "author":       "Michael Speth",
+  "author":       "Landcare Research",
   "summary":      "Configures and Installs Apache Solr",
   "license":      "GPL-3.0+",
   "source":       "git://bitbucket.org/landcareresearch/puppet-solr.git",
@@ -24,9 +24,10 @@
     }
   ],
   "dependencies": [
-    {"name":"puppetlabs-stdlib", "version_requirement":">= 4.5.0"},
-    {"name":"maestrodev-wget", "version_requirement":">= 1.7.0"},
-    {"name":"camptocamp-systemd", "version_requirement":">= 0.2.2"}
+    {"name":"puppetlabs/stdlib", "version_requirement":">= 4.5.0"},
+    {"name":"maestrodev/wget", "version_requirement":">= 1.7.0"},
+    {"name":"camptocamp/systemd", "version_requirement":">= 0.2.2"},
+    {"name":"spantree/java8", "version_requirement":">= 0.5.0"},
+    {"name":"puppetlabs/apt", "version_requirement":">= 2.0.0"}
   ]
 }
-

@@ -2,3 +2,6 @@
 # puppet forge modules
 mod 'puppetlabs/stdlib'          , '4.9.0'
 mod 'maestrodev/wget'            , '1.7.1'
+mod 'spantree/java8'             , '0.5.0'
+mod 'puppetlabs/apt'             , '2.2.2'
+mod 'camptocamp/systemd'         , '0.2.2'
