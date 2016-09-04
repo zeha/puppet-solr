@@ -62,7 +62,8 @@
 #   Default: "/var/log/solr"
 #
 # [*solr_environment*]
-#   ARRAY - Bash style environment variables passed at the end of the solr server environment.
+#   ARRAY - Bash style environment variables passed at the end of the solr
+#   server environment.
 #   Default: []
 #
 # [*cores*]

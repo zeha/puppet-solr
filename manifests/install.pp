@@ -64,14 +64,17 @@ class solr::install {
 
   # extract install script
   exec {'extract install script':
-    command     => "/bin/tar -C ${solr::solr_downloads} -xf ${tarball} solr-${solr::version}/bin/install_solr_service.sh --strip-components=2",
+    command     => "/bin/tar -C ${solr::solr_downloads} -xf ${tarball}\
+  solr-${solr::version}/bin/install_solr_service.sh --strip-components=2",
     refreshonly => true,
     subscribe   => Wget::Fetch['solr'],
   }
 
   # run install script
   exec {'install_solr_service.sh':
-    command     => "${solr::solr_downloads}/install_solr_service.sh \"${tarball}\" -f -i \"${solr::install_dir}\" -d \"${solr::var_dir}\" -u ${solr::solr_user} -p ${solr::solr_port}",
+    command     => "${solr::solr_downloads}/install_solr_service.sh\
+  \"${tarball}\" -f -i \"${solr::install_dir}\" -d \"${solr::var_dir}\"\
+ -u ${solr::solr_user} -p ${solr::solr_port}",
     refreshonly => true,
     subscribe   => Exec['extract install script'],
     require     =>  [ User[$solr::solr_user],
