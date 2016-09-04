@@ -1,4 +1,4 @@
-## 20160-8-05 Release 0.4.0
+## 20160-8-05 Release 0.5.0
 
 ### Summary
 Updated for Solr6
@@ -9,6 +9,8 @@ Updated for Solr6
    - Debian based distros use Oracle Java 8 and redhat based use openjdk.
    - Java 7 no longer supported.
    - Added scripts for testing all supported versions via vagrant.
+
+## 2016-06-28 Release 0.4.0
 
 ## 2016-06-28 Release 0.3.7
 
