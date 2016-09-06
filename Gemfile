@@ -8,6 +8,7 @@ source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
  puppetversion = [ '>= 3.7.3', '<= 3.7.5' ]
  
+ gem 'json_pure', [ '< 2.0.2' ]
  gem 'rake'
  gem 'puppet-lint'
  gem 'rspec-puppet'

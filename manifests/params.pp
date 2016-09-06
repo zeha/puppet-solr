@@ -39,35 +39,45 @@
 #
 class solr::params (
 ){
-  $url       = 'http://mirrors.gigenet.com/apache/lucene/solr'
-  $version   = '5.5.2'
-  $solr_user = 'solr'
-  $solr_host = '127.0.0.1'
-  $solr_port = '8983'
-  $timeout   = '120'
-  $solr_heap = '512m'
-  $solr_home = '/opt/solr'
+  $url            = 'http://mirrors.gigenet.com/apache/lucene/solr'
+  $version        = '6.2.0'
+  $solr_user      = 'solr'
+  $solr_host      = '127.0.0.1'
+  $solr_port      = '8983'
+  $timeout        = '120'
+  $solr_heap      = '512m'
+  $solr_downloads = '/opt/solr_downloads'
+  $solr_logs      = '/var/log/solr'
+  $install_dir    = '/opt'
+  $var_dir        = '/var/solr'
 
   # OS Specific configuration
   case $::osfamily {
     'redhat': {
-      $required_packages  = ['java-1.7.0-openjdk','unzip','lsof']
-      $java_home = '/usr/lib/jvm/jre-1.7.0'
-      if $::lsbmajdistrelease > 7 {
+      $required_packages  = ['java-1.8.0-openjdk','unzip','lsof']
+      $java_home = '/usr/lib/jvm/jre-1.8.0'
+      $solr_env = '/etc/sysconfig/solr'
+      if versioncmp($::lsbmajdistrelease, '7') >= 0 {
         $is_systemd = true
       } else {
         $is_systemd = false
       }
+
+      # java8 module for installing oracle java on debian systems
+      $use_java_module = false
     }
     'debian':{
-      $required_packages = ['openjdk-7-jre','unzip','lsof']
-      $java_home = '/usr/lib/jvm/java-7-openjdk-amd64/jre'
+      $required_packages = ['unzip','lsof']
+      $java_home = '/usr/lib/jvm/java-8-oracle/jre'
+      $solr_env = '/etc/default/solr'
       if $::operatingsystem == 'Ubuntu' and
       versioncmp($::operatingsystemrelease, '15.04') >= 0 {
         $is_systemd = true
       } else {
         $is_systemd = false
       }
+      # java8 module for installing oracle java on debian systems
+      $use_java_module = true
     }
     default: {
       fail("Unsupported OS ${::osfamily}.\

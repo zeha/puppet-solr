@@ -9,3 +9,4 @@ vagrant/puppet/modules/*
 .vagrant
 /vagrant/nbproject/private/
 vagrant/puppet/logs
+vagrant/results.txt

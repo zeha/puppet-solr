@@ -25,10 +25,10 @@ class solr::config {
       require => Anchor['solr::config::begin'],
     }
 
-    # setup a sym link for java home
+    # setup a sym link for java home (TODO: FIX to not be hard coded)
     file { '/usr/java/default':
       ensure  => 'link',
-      target  => '/usr/lib/jvm/java-7-openjdk-amd64',
+      target  => '/usr/lib/jvm/java-8-openjdk-amd64',
       require => File['/usr/java'],
       before  => File[$::solr::solr_logs],
     }
@@ -49,19 +49,34 @@ class solr::config {
     require => File[$::solr::solr_logs],
   }
 
-  file { '/etc/init.d/solr':
-    ensure  => file,
-    mode    => '0755',
-    content => template('solr/solr.sh.erb'),
-    require => File[$::solr::solr_env],
-  }
-
   # setup the service level entry
   if $::solr::params::is_systemd {
     include '::systemd'
-    File['/etc/init.d/solr'] ~> Exec['systemctl-daemon-reload']
+    # TODO: Create systemd unit file
+    ::systemd::unit_file { 'solr.service':
+      content => template('solr/solr.service.erb'),
+      require => File[$::solr::solr_env],
+      before  => Anchor['solr::config::end'],
+    }
+
+    # prevents confusion
+    file { '/etc/init.d/solr':
+      ensure => absent,
+    }
+
+  # This could potentially cause issues
+  Exec['systemctl-daemon-reload'] -> Anchor['solr::config::end']
+
+  } else {
+    file { '/etc/init.d/solr':
+      ensure  => file,
+      mode    => '0755',
+      content => template('solr/solr.sh.erb'),
+      require => File[$::solr::solr_env],
+      before  => Anchor['solr::config::end'],
+    }
   }
   anchor{'solr::config::end':
-    require => File['/etc/init.d/solr'],
+    require => File[$::solr::solr_logs],
   }
 }

@@ -1,4 +1,7 @@
 #!/bin/sh
+####################################################################
+#### NOTE: THIS FILE IS PUPPET CONTROLLED - ANY CHAGES WILL BE LOST
+####################################################################
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -32,14 +35,14 @@
 #   update-rc.d solr defaults
 #   update-rc.d solr enable
 
-SOLR_INSTALL_DIR=<%= scope.lookupvar('solr::solr_home') -%>
+SOLR_BIN_DIR=<%= scope['solr::solr_bin'] -%>
 
-if [ ! -d "$SOLR_INSTALL_DIR" ]; then
-  echo "$SOLR_INSTALL_DIR not found! Please check the SOLR_INSTALL_DIR setting in your $0 script."
+if [ ! -d "$SOLR_BIN_DIR" ]; then
+  echo "$SOLR_BIN_DIR not found! Please check the SOLR_BIN_DIR setting in your $0 script."
   exit 1
 fi
 
-SOLR_ENV=<%= scope.lookupvar('solr::solr_env') -%>
+SOLR_ENV=<%= scope['solr::solr_env'] -%>
 
 if [ ! -f "$SOLR_ENV" ]; then
   echo "$SOLR_ENV not found! Please check the SOLR_ENV setting in your $0 script."
@@ -48,7 +51,7 @@ fi
 
 # Specify the user to run Solr as; if not set, then Solr will run as root.
 # Running Solr as root is not recommended for production environments
-RUNAS=<%= scope.lookupvar('solr::solr_user') -%>
+RUNAS=<%= scope['solr::solr_user'] -%>
 
 # verify the specified run as user exists
 runas_uid=`id -u $RUNAS`
@@ -59,7 +62,7 @@ fi
 
 start () {
     echo -n "Starting solr..."
-    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr start" - $RUNAS
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_BIN_DIR/solr start" - $RUNAS
 
     RETVAL=$?
     if [ $RETVAL = 0 ]
@@ -74,7 +77,7 @@ start () {
 stop () {
     echo -n "Stopping solr..."
 
-    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr stop" - $RUNAS
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_BIN_DIR/solr stop" - $RUNAS
     RETVAL=$?
 
     if [ $RETVAL = 0 ]
@@ -89,7 +92,7 @@ stop () {
 restart () {
 
     echo -n "Restart solr..."
-    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr restart" - $RUNAS
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_BIN_DIR/solr restart" - $RUNAS
     RETVAL=$?
 
     if [ $RETVAL = 0 ]
@@ -102,7 +105,7 @@ restart () {
 }
 
 status () {
-    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr status" - $RUNAS
+    su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_BIN_DIR/solr status" - $RUNAS
     RETVAL=$?
 
     if [ $RETVAL = 0 ]
