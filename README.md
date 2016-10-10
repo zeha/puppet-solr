@@ -8,8 +8,10 @@
 Installs and configures apache solr and runs the embedded jetty service.
 http://lucene.apache.org/solr/
 
-Originally, this module supported solr 4.x.  However, version 0.3.0 has been upgraded to work with solar 5.x and no longer supports 4.x
-So if you want to use solr 4.x, than please continue to use 0.2.2.
+### Solr Versions
+* 5.3.x and up   - use solr puppet module 0.5.x
+* 5.0.x to 5.2.x - use solr puppet module 0.4.x
+* 4.x.x          - use solr puppet module 0.2.2
 
 Supports systemd
 

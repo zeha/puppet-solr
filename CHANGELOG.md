@@ -1,4 +1,14 @@
-## 20160-8-05 Release 0.5.0
+## 2016-10-10 Release 0.5.2
+## 2016-10-10 Release 0.5.1
+
+### Summary
+  Removed LSB dependency for redhat systems.
+
+###Changed
+  - Removed the LSB dependency for redhat systems.
+  - Updated readme to set a new dependency for solr version supported by this module.
+
+## 2016-08-05 Release 0.5.0
 
 ### Summary
 Updated for Solr6
