@@ -1,1 +1,1 @@
-require './config/centos7.2'
+require './config/ubuntu12.04'

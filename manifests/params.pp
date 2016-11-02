@@ -49,6 +49,7 @@ class solr::params (
   $solr_downloads = '/opt/solr_downloads'
   $solr_logs      = '/var/log/solr'
   $install_dir    = '/opt'
+  $install_dir_mg = false
   $var_dir        = '/var/solr'
 
   # OS Specific configuration

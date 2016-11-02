@@ -1,10 +1,23 @@
+## 2016-11-02 Release 0.5.3
+### Summary
+Fixed an issue with core shema names and added a parameter.
+
+### Changed
+  - The schema filename was set to managed-schema for version 5.5.0 and up.
+    However, I confirmed this was incorrect for at least version 5.5.3.
+    So I changed the conditional to 5.6.0 to use managed-schema and previous
+    versions to use schema.xml
+  - Added a new parameter set to false for managing the solr_install directory.
+    By default, its /opt which can easily cause dependency cycles when 
+    used with other puppet modules.
+
 ## 2016-10-10 Release 0.5.2
 ## 2016-10-10 Release 0.5.1
 
 ### Summary
   Removed LSB dependency for redhat systems.
 
-###Changed
+### Changed
   - Removed the LSB dependency for redhat systems.
   - Updated readme to set a new dependency for solr version supported by this module.
 

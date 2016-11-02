@@ -49,6 +49,11 @@
 #   The install directory (`-i`) parameter passed to the solr installer.
 #   Default: '/opt'
 #
+# [*install_dir_mg*]
+#   Sets if this module should manage the install directory.
+#   True if this module should manage and false otherwise.
+#   Default: false
+#
 # [*solr_home*]
 #   The home directory for solr.
 #   Default: "${install_dir}/solr" (/opt/solr)
@@ -101,6 +106,7 @@ class solr (
   $heap             = $solr::params::heap,
   $solr_downloads   = $solr::params::solr_downloads,
   $install_dir      = $solr::params::install_dir,
+  $install_dir_mg   = $solr::params::install_dir_mg,
   $var_dir          = $solr::params::var_dir,
   $solr_logs        = $solr::params::solr_logs,
   $java_home        = $solr::params::java_home,
@@ -120,8 +126,9 @@ class solr (
   $solr_lib_dir   = "${solr_server}/solr-webapp/webapp/WEB-INF/lib"
 
 
-  # The schema filename is managed-schema in 5.5+
-  if versioncmp($solr::version, '5.5.0') >= 0 {
+  # I have confirmed that managed-schema doesn't work in 5.5.3
+  # So I am pushing to version 5.6.0.
+  if versioncmp($solr::version, '5.6.0') >= 0 {
     $schema_filename = 'managed-schema'
   } else {
     $schema_filename = 'schema.xml'

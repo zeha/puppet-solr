@@ -48,9 +48,12 @@ class solr::install {
     require => Anchor['solr::install::begin'],
   }
 
-  file { $solr::install_dir:
-    ensure  => directory,
-    require => Anchor['solr::install::begin'],
+  if $solr::install_dir_mg{
+    file { $solr::install_dir:
+      ensure  => directory,
+      require => Anchor['solr::install::begin'],
+      before  => Exec['install_solr_service.sh'],
+    }
   }
 
   # download solr
@@ -77,9 +80,7 @@ class solr::install {
  -u ${solr::solr_user} -p ${solr::solr_port}",
     refreshonly => true,
     subscribe   => Exec['extract install script'],
-    require     =>  [ User[$solr::solr_user],
-                      File[$solr::install_dir],
-                    ],
+    require     =>  User[$solr::solr_user]
   }
 
   anchor{'solr::install::end':

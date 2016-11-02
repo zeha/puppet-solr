@@ -73,6 +73,11 @@ Default: '/opt/solr_downloads'
 The install directory for solr.
 Default: '/opt/solr'
 
+#### `install_dir_mg`
+Sets if this module should manage the install directory.
+True if this module should manage and false otherwise.  
+Default: false
+
 #### `var_dir`
 The data directory for solr.
 Default: '/var/solr'
