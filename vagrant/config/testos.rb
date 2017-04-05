@@ -1,1 +1,1 @@
-require './config/ubuntu12.04'
+require './config/ubuntu16.04'

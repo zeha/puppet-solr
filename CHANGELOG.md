@@ -1,3 +1,13 @@
+## 2017-04-05 Release 0.5.4
+### Summary
+Updated for Ubuntu 16.04
+
+### Changed
+  - Updated required packages for Ubuntu 16.04.
+  - Updated url to archive.apache.org.
+  - Updated gemfile for puppet 4 compliance.
+  - Updated systemd puppet version.
+
 ## 2016-11-02 Release 0.5.3
 ### Summary
 Fixed an issue with core shema names and added a parameter.
