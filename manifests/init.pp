@@ -103,7 +103,7 @@ class solr (
   $user             = $solr::params::user,
   $solr_host        = $solr::params::solr_host,
   $solr_port        = $solr::params::solr_port,
-  $heap             = $solr::params::heap,
+  $solr_heap        = $solr::params::solr_heap,
   $solr_downloads   = $solr::params::solr_downloads,
   $install_dir      = $solr::params::install_dir,
   $install_dir_mg   = $solr::params::install_dir_mg,

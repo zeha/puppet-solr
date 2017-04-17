@@ -1,3 +1,9 @@
+## 2017-04-18 Release 0.5.5
+Fixed a minor bug
+
+### Changed
+  - Fixed a minor bug with the solr_heap variable set incorrectly
+
 ## 2017-04-05 Release 0.5.4
 ### Summary
 Updated for Ubuntu 16.04
