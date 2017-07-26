@@ -61,7 +61,7 @@ ZK_HOST="<%= scope['::solr::zk_hosts'].join(",") -%>"
 
 # By default the start script uses "localhost"; override the hostname here
 # for production SolrCloud environments to control the hostname exposed to cluster state
-SOLR_HOST=<%= scope['::solr::solr_host'] %>
+SOLR_HOST="<%= scope['::solr::solr_host'] %>"
 
 # By default the start script uses UTC; override the timezone if needed
 #SOLR_TIMEZONE="UTC"
