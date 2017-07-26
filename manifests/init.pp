@@ -127,9 +127,6 @@ class solr (
   $basic_dir      = "${solr_server}/solr/configsets/basic_configs/conf"
   $solr_lib_dir   = "${solr_server}/solr-webapp/webapp/WEB-INF/lib"
 
-  notice($zk_hosts)
-
-
   # I have confirmed that managed-schema doesn't work in 5.5.3
   # So I am pushing to version 5.6.0.
   if versioncmp($solr::version, '5.6.0') >= 0 {
