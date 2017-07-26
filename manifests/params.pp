@@ -51,6 +51,7 @@ class solr::params (
   $install_dir    = '/opt'
   $install_dir_mg = false
   $var_dir        = '/var/solr'
+  $zk_hosts       = []
 
   # OS Specific configuration
   case $::osfamily {

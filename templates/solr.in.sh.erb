@@ -52,6 +52,9 @@ GC_TUNE="-XX:NewRatio=3 \
 # e.g. host1:2181,host2:2181/chroot
 # Leave empty if not using SolrCloud
 #ZK_HOST=""
+<% if !scope['::solr::zk_hosts'].empty? -%>
+ZK_HOST="<%= scope['::solr::zk_hosts'].join(",") -%>"
+<% end -%>
 
 # Set the ZooKeeper client timeout (for SolrCloud mode)
 #ZK_CLIENT_TIMEOUT="15000"

@@ -114,6 +114,7 @@ class solr (
   $solr_environment = [],
   $cores            = {},
   $required_packages= $solr::params::required_packages,
+  $zk_hosts         = $solr::params::zk_hosts,
 ) inherits ::solr::params{
 
   ## === Variables === ##
@@ -125,6 +126,8 @@ class solr (
   $solr_server    = "${install_dir}/solr/server"
   $basic_dir      = "${solr_server}/solr/configsets/basic_configs/conf"
   $solr_lib_dir   = "${solr_server}/solr-webapp/webapp/WEB-INF/lib"
+
+  notice($zk_hosts)
 
 
   # I have confirmed that managed-schema doesn't work in 5.5.3
