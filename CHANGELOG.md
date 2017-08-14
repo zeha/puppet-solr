@@ -1,3 +1,11 @@
+## 2017-08-14 Release 0.5.6
+Added additional configuration parameters
+
+### Changed
+  - Renamed parameter 'user' to 'solr_user'
+  - Added parameter for disabling the installation of java
+  - Added parameter for configuring ZooKeeper ensemble
+
 ## 2017-04-18 Release 0.5.5
 Fixed a minor bug
 
