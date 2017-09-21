@@ -92,6 +92,11 @@ Default: (os specific)
   * Debian/Ubuntu: '/usr/lib/jvm/java-8-openjdk-amd64/jre'
   * CentOS/RHEL: '/usr/lib/jvm/jre-1.8.0'
 
+#### `use_java_module`
+Uses the spantree/java8 module to install java.
+If set to false, this module does not manage java and will fail if java is not present on the system.  
+Default: true
+
 #### `solr_environment`
 ARRAY - Bash type environment variables passed directly into the SOLR server startup environment
 Default: []
@@ -101,6 +106,10 @@ An array of hashes that define a core which will be created with the
 create_resources function.
 See type solr::core for details.
 Default: {}
+
+#### `zk_hosts`
+For configuring ZooKeeper ensemble.  
+Default: '[]'
 
 ## Usage
 
