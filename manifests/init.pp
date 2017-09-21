@@ -25,9 +25,8 @@
 #   Default: 120 seconds.
 #
 # [*solr_user*]
-#   Run Solr as this user ID.
+#   Run Solr as this user ID (default: solr)
 #   Note, creates this user.
-#   Default: solr
 #
 # [*solr_host*]
 #   Listen to connections from this network host
@@ -44,6 +43,7 @@
 #
 # [*solr_downloads*]
 #   Contains the solr tarballs and extracted dirs.
+#
 #
 # [*install_dir*]
 #   The install directory (`-i`) parameter passed to the solr installer.
@@ -66,18 +66,6 @@
 #   The directory for the solr logs.
 #   Default: "/var/log/solr"
 #
-# [*java_home*]
-#   The directory that contains the jvm.
-#   Default: (os specific)
-#     * Debian/Ubuntu: '/usr/lib/jvm/java-8-openjdk-amd64/jre'
-#     * CentOS/RHEL: '/usr/lib/jvm/jre-1.8.0'
-#
-# [*use_java_module*]
-#   Uses the spantree/java8 module to install java.
-#   If set to false, this module does not manage java and will fail if
-#   java is not present on the system.
-#   Default: true
-#
 # [*solr_environment*]
 #   ARRAY - Bash style environment variables passed at the end of the solr
 #   server environment.
@@ -88,10 +76,6 @@
 #   create_resources function.
 #   See type solr::core for details.
 #   Default: {}
-#
-# [*zk_hosts*]
-#   For configuring ZooKeeper ensemble.
-#   Default: '[]'
 #
 # === Variables
 #
@@ -113,24 +97,26 @@
 # GPL-3.0+
 #
 class solr (
-  $version          = $solr::params::version,
-  $url              = $solr::params::url,
-  $timeout          = $solr::params::timeout,
-  $solr_user        = $solr::params::solr_user,
-  $solr_host        = $solr::params::solr_host,
-  $solr_port        = $solr::params::solr_port,
-  $solr_heap        = $solr::params::solr_heap,
-  $solr_downloads   = $solr::params::solr_downloads,
-  $install_dir      = $solr::params::install_dir,
-  $install_dir_mg   = $solr::params::install_dir_mg,
-  $var_dir          = $solr::params::var_dir,
-  $solr_logs        = $solr::params::solr_logs,
-  $java_home        = $solr::params::java_home,
-  $use_java_module  = $solr::params::use_java_module,
-  $solr_environment = [],
-  $cores            = {},
-  $required_packages= $solr::params::required_packages,
-  $zk_hosts         = $solr::params::zk_hosts,
+  $version              = $solr::params::version,
+  $url                  = $solr::params::url,
+  $timeout              = $solr::params::timeout,
+  $solr_user            = $solr::params::solr_user,
+  $solr_host            = $solr::params::solr_host,
+  $solr_port            = $solr::params::solr_port,
+  $solr_heap            = $solr::params::solr_heap,
+  $solr_downloads       = $solr::params::solr_downloads,
+  $install_dir          = $solr::params::install_dir,
+  $install_dir_mg       = $solr::params::install_dir_mg,
+  $var_dir              = $solr::params::var_dir,
+  $solr_logs            = $solr::params::solr_logs,
+  $java_home            = $solr::params::java_home,
+  $use_java_module      = $solr::params::use_java_module,
+  $solr_environment     = [],
+  $cores                = {},
+  $required_packages    = $solr::params::required_packages,
+  $zk_hosts             = $solr::params::zk_hosts,
+  $log4j_maxfilesize    = $solr::params::log4j_maxfilesize,
+  $log4j_maxbackupindex = $solr::params::log4j_maxbackupindex,
 ) inherits ::solr::params{
 
   ## === Variables === ##

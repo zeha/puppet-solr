@@ -111,6 +111,14 @@ Default: {}
 For configuring ZooKeeper ensemble.  
 Default: '[]'
 
+#### `log4j_maxfilesize`
+Maximum allowed log file size (in bytes) before rolling over. Suffixes "KB", "MB" and "GB" are allowed.
+Default: 4MB
+
+#### `log4j_maxbackupindex`
+Maximum number of log backup files to keep.
+Default: 9
+
 ## Usage
 
 ### Simple Use Case

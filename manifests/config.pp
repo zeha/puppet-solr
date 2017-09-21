@@ -49,6 +49,13 @@ class solr::config {
     require => File[$::solr::solr_logs],
   }
 
+  # setup log4j configuration file.
+  file { "${::solr::var_dir}/log4j.properties":
+    ensure  => file,
+    content => template('solr/log4j.properties.erb'),
+    before  => Anchor['solr::config::end'],
+  }
+
   # setup the service level entry
   if $::solr::params::is_systemd {
     include '::systemd'
