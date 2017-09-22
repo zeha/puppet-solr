@@ -55,7 +55,7 @@ class solr::params (
 
   # OS Specific configuration
   case $::osfamily {
-    'redhat': {
+    'RedHat': {
       $required_packages  = ['java-1.8.0-openjdk','unzip','lsof']
       $java_home = '/usr/lib/jvm/jre-1.8.0'
       $solr_env = '/etc/sysconfig/solr'
