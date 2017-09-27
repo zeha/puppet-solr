@@ -24,6 +24,10 @@
 #   The timeout used for downloading the solr package.
 #   Default: 120 seconds.
 #
+# [*manage_user*]
+#   Whether to manage the solr user or not
+#   Default: true
+#
 # [*solr_user*]
 #   Run Solr as this user ID.
 #   Note, creates this user.
@@ -116,6 +120,7 @@ class solr (
   $version          = $solr::params::version,
   $url              = $solr::params::url,
   $timeout          = $solr::params::timeout,
+  $manage_user      = $solr::params::manage_user,
   $solr_user        = $solr::params::solr_user,
   $solr_host        = $solr::params::solr_host,
   $solr_port        = $solr::params::solr_port,
@@ -125,6 +130,7 @@ class solr (
   $install_dir_mg   = $solr::params::install_dir_mg,
   $var_dir          = $solr::params::var_dir,
   $solr_logs        = $solr::params::solr_logs,
+  $solr_home        = $solr::params::solr_home,
   $java_home        = $solr::params::java_home,
   $use_java_module  = $solr::params::use_java_module,
   $solr_environment = [],
@@ -134,7 +140,6 @@ class solr (
 ) inherits ::solr::params{
 
   ## === Variables === ##
-  $solr_home      = "${var_dir}/data"
   $solr_env       = $solr::params::solr_env
   $solr_core_home = $solr_home
   $solr_pid_dir   = $var_dir
