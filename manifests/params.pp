@@ -12,6 +12,9 @@
 #   The version to install.
 #   Default: '5.5.2'.
 #
+# [*manage_user*]
+#  Whether to manage the solr user or not  (default: true)
+#
 # [*solr_user*]
 #   Run Solr as this user ID (default: solr)
 #   Note, creates this user.
@@ -49,6 +52,7 @@ class solr::params (
 ){
   $url                  = 'http://archive.apache.org/dist/lucene/solr/'
   $version              = '6.2.0'
+  $manage_user          = true
   $solr_user            = 'solr'
   $solr_host            = '127.0.0.1'
   $solr_port            = '8983'
@@ -65,7 +69,7 @@ class solr::params (
 
   # OS Specific configuration
   case $::osfamily {
-    'redhat': {
+    'RedHat': {
       $required_packages  = ['java-1.8.0-openjdk','unzip','lsof']
       $java_home = '/usr/lib/jvm/jre-1.8.0'
       $solr_env = '/etc/sysconfig/solr'
