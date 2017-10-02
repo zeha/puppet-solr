@@ -1,3 +1,9 @@
+## 2017-10-03 Release 0.5.7
+Added log4j support
+
+### Changed
+  - Added log4j support (contributed by Maxilian Stinsky)
+
 ## 2017-08-14 Release 0.5.6
 Added additional configuration parameters
 
