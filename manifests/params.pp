@@ -13,11 +13,13 @@
 #   Default: '5.5.2'.
 #
 # [*manage_user*]
-#  Whether to manage the solr user or not  (default: true)
+#   Whether to manage the solr user or not
+#   Default: true
 #
 # [*solr_user*]
-#   Run Solr as this user ID (default: solr)
+#   Run Solr as this user ID
 #   Note, creates this user.
+#   Default: solr
 #
 # [*solr_host*]
 #   Listen to connections from this network host

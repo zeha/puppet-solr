@@ -3,6 +3,8 @@ Added log4j support
 
 ### Changed
   - Added log4j support (contributed by Maxilian Stinsky)
+  - Added manage user parameter (contributed by hundredacres)
+  - Fixed OS Family for Redhat Systems (contributed by hundredacres)
 
 ## 2017-08-14 Release 0.5.6
 Added additional configuration parameters
