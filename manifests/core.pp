@@ -89,7 +89,7 @@ define solr::core (
     ensure  => directory,
     owner   => $::solr::solr_user,
     group   => $::solr::solr_user,
-    require => [Class[Solr::Config],
+    require => [Class['solr::config'],
                 Anchor["solr::core::${title}::begin"]],
   }
 
@@ -108,7 +108,7 @@ define solr::core (
     source  => $solrconfig_src_file,
     replace => $replace,
     require => File[$conf_dir],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   file { "${conf_dir}/synonyms.txt":
@@ -118,7 +118,7 @@ define solr::core (
     source  => $synonyms_src_file,
     replace => $replace,
     require => File["${conf_dir}/solrconfig.xml"],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   file { "${conf_dir}/protwords.txt":
@@ -128,7 +128,7 @@ define solr::core (
     source  => $protwords_src_file,
     replace => $replace,
     require => File["${conf_dir}/synonyms.txt"],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   file { "${conf_dir}/stopwords.txt":
@@ -138,7 +138,7 @@ define solr::core (
     source  => $stopwords_src_file,
     replace => $replace,
     require => File["${conf_dir}/protwords.txt"],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   exec { "${core_name}_copy_lang":
@@ -146,7 +146,7 @@ define solr::core (
     user    => $::solr::solr_user,
     creates => "${conf_dir}/lang/stopwords_en.txt",
     require => File["${conf_dir}/stopwords.txt"],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   file { "${conf_dir}/currency.xml":
@@ -156,7 +156,7 @@ define solr::core (
     source  => $currency_src_file,
     replace => $replace,
     require => Exec["${core_name}_copy_lang"],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   file { $schema_file:
@@ -166,7 +166,7 @@ define solr::core (
     source  => $schema_src_file,
     replace => $replace,
     require => File["${conf_dir}/currency.xml"],
-    notify  => Class[Solr::Service],
+    notify  => Class['solr::service'],
   }
 
   $defaults = {
@@ -175,7 +175,7 @@ define solr::core (
     'group'   => $::solr::solr_user,
     'replace' => $replace,
     'require' => File[$conf_dir],
-    'notify'  => Class[Solr::Service],
+    'notify'  => Class['solr::service'],
     'before'  => File["${dest_dir}/core.properties"],
   }
   create_resources(file, other_files($other_files, $conf_dir), $defaults)
