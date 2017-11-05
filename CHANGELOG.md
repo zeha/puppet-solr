@@ -1,3 +1,9 @@
+## 2017-11-06 Release 0.5.8
+Fix for Puppet 5
+
+### Changed
+  - Fixed a syntax problem for puppet 5.
+
 ## 2017-10-03 Release 0.5.7
 Added log4j support
 
