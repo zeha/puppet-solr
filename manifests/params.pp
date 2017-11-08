@@ -52,22 +52,23 @@
 #
 class solr::params (
 ){
-  $url                  = 'http://archive.apache.org/dist/lucene/solr/'
-  $version              = '6.2.0'
-  $manage_user          = true
-  $solr_user            = 'solr'
-  $solr_host            = '127.0.0.1'
-  $solr_port            = '8983'
-  $timeout              = '120'
-  $solr_heap            = '512m'
-  $solr_downloads       = '/opt/solr_downloads'
-  $solr_logs            = '/var/log/solr'
-  $install_dir          = '/opt'
-  $install_dir_mg       = false
-  $var_dir              = '/var/solr'
-  $zk_hosts             = []
-  $log4j_maxfilesize    = '4MB'
-  $log4j_maxbackupindex = '9'
+  $url                       = 'http://archive.apache.org/dist/lucene/solr/'
+  $version                   = '6.2.0'
+  $manage_user               = true
+  $solr_user                 = 'solr'
+  $solr_host                 = '127.0.0.1'
+  $solr_port                 = '8983'
+  $timeout                   = '120'
+  $solr_heap                 = '512m'
+  $solr_downloads            = '/opt/solr_downloads'
+  $solr_logs                 = '/var/log/solr'
+  $install_dir               = '/opt'
+  $install_dir_mg            = false
+  $var_dir                   = '/var/solr'
+  $zk_hosts                  = []
+  $log4j_maxfilesize         = '4MB'
+  $log4j_rootlogger_loglevel = 'INFO'
+  $log4j_maxbackupindex      = '9'
 
   # OS Specific configuration
   case $::osfamily {

@@ -3,7 +3,7 @@
 ####################################################################
 # rootLogger log level may be programmatically overridden by -Dsolr.log.level
 solr.log=${solr.log.dir}
-log4j.rootLogger=INFO, file, CONSOLE
+log4j.rootLogger=<%= scope['::solr::log4j_rootlogger_loglevel'] %>, file, CONSOLE
 
 # Console appender will be programmatically disabled when Solr is started with option -Dsolr.log.muteconsole
 log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
