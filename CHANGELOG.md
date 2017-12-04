@@ -1,3 +1,10 @@
+## 2017-12-04 Release 0.5.9
+Added Ubuntu 16.04 support.
+
+### Changed
+  - Added ubuntu 16.04 support
+  - Fixed an issue with an option 'SOLR_OPTS' delcared in multiple configuration files.
+
 ## 2017-11-06 Release 0.5.8
 Fix for Puppet 5
 
