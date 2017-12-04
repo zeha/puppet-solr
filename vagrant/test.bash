@@ -3,6 +3,7 @@
 TESTS=(
 "ubuntu12.04"
 "ubuntu14.04"
+"ubuntu16.04"
 )
 OUT="results.txt"
 

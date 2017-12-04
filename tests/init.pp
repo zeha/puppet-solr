@@ -1,1 +1,3 @@
-include solr
+class{'solr':
+  version => '7.1.0',
+}
