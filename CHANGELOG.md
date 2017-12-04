@@ -1,3 +1,9 @@
+## 2017-12-05 Release 0.5.10
+Added Loglevel parameter
+
+### Changed
+  - Added a parameter to set the loglevel for log4j.
+
 ## 2017-12-04 Release 0.5.9
 Added Ubuntu 16.04 support.
 

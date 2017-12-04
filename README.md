@@ -119,6 +119,21 @@ Default: 4MB
 Maximum number of log backup files to keep.
 Default: 9
 
+#### `log4j_rootlogger_loglevel`
+The loglevel to set for log4j.  Use the defined enum.  Valid options 
+
+* 'ALL'
+* 'DEBUG'
+* 'ERROR'
+* 'FATAL'
+* 'INFO'
+* 'OFF'
+* 'TRACE'
+* 'TRACE_INT'
+* 'WARN'
+
+Default: 'INFO'
+
 ## Usage
 
 ### Simple Use Case

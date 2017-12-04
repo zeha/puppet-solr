@@ -97,6 +97,21 @@
 #   For configuring ZooKeeper ensemble.
 #   Default: '[]'
 #
+# [*log4j_maxfilesize*]
+#   Maximum allowed log file size (in bytes) before rolling over.
+#   Suffixes "KB", "MB" and "GB" are allowed.
+#   Default: 4MB
+#
+# [*log4j_maxbackupindex*]
+#   Maximum number of log backup files to keep.
+#   Default: 9
+#
+# [*log4j_rootlogger_loglevel*]
+#   The loglevel to set for log4j.
+#   Use the defined enum.  Valid options 
+#  'ALL', 'DEBUG', 'ERROR', 'FATAL', 'INFO', 'OFF', 'TRACE', 'TRACE_INT','WARN'
+#   Default: 'INFO'
+#
 # === Variables
 #
 # [*solr_core_home*]
