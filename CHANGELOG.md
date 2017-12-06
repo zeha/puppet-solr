@@ -1,3 +1,10 @@
+## 2017-12-06 Release 0.5.11
+Fixed bug with solr_home
+
+### Changed
+  - A bug was introduced in version 0.5.1 which removed the default solr home parameter.
+    This release fixes that bug.
+
 ## 2017-12-05 Release 0.5.10
 Added Loglevel parameter
 

@@ -65,6 +65,7 @@ class solr::params (
   $solr_port                 = '8983'
   $timeout                   = '120'
   $solr_heap                 = '512m'
+  $solr_home                 = '/opt/solr/server/solr'
   $solr_downloads            = '/opt/solr_downloads'
   $solr_logs                 = '/var/log/solr'
   $install_dir               = '/opt'

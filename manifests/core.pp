@@ -70,6 +70,7 @@ define solr::core (
   $solrconfig_src_file  = "${::solr::basic_dir}/solrconfig.xml",
   $stopwords_src_file   = "${::solr::basic_dir}/stopwords.txt",
   $synonyms_src_file    = "${::solr::basic_dir}/synonyms.txt",
+  $elevate_src_file     = "${::solr::basic_dir}/elevate.xml",
 ){
 
   anchor{"solr::core::${title}::begin":}
@@ -84,6 +85,18 @@ define solr::core (
   $dest_dir    = "${::solr::solr_core_home}/${core_name}"
   $conf_dir    = "${dest_dir}/conf"
   $schema_file = "${conf_dir}/${solr::schema_filename}"
+
+  # check solr version
+  # parse the version to get first
+  $version_array = split($::solr::version,'[.]')
+  $ver_major = $version_array[0]+0
+  notice("solr::version = ${::solr::version}")
+  notice("varray = ${version_array}")
+  if $ver_major >= 6 {
+    $elevate_src_file_in = $elevate_src_file
+  }else{
+    $elevate_src_file_in = undef
+  }
 
   file { $dest_dir:
     ensure  => directory,
@@ -157,6 +170,18 @@ define solr::core (
     replace => $replace,
     require => Exec["${core_name}_copy_lang"],
     notify  => Class['solr::service'],
+  }
+
+  if $elevate_src_file_in {
+    file { "${conf_dir}/elevate.xml":
+      ensure  => file,
+      owner   => $::solr::solr_user,
+      group   => $::solr::solr_user,
+      source  => $elevate_src_file_in,
+      replace => $replace,
+      require => File["${conf_dir}/currency.xml"],
+      notify  => Class['solr::service'],
+    }
   }
 
   file { $schema_file:

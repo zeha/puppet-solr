@@ -52,6 +52,8 @@ class solr::config {
   # setup log4j configuration file.
   file { "${::solr::var_dir}/log4j.properties":
     ensure  => file,
+    owner   => 'solr',
+    group   => 'solr',
     content => template('solr/log4j.properties.erb'),
     before  => Anchor['solr::config::end'],
   }
