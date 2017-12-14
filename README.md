@@ -134,6 +134,16 @@ The loglevel to set for log4j.  Use the defined enum.  Valid options
 
 Default: 'INFO'
 
+#### `schema_name`
+The Solr cores' schema name. This should be set to `schema.xml` if using
+the classic schema.xml method. If using a managed schema, set this to
+Solr's "managedSchemaResourceName" setting, typically 'manage-schema'.
+Refer to Solr's documentation for `core.properties` for details.
+
+Default: varies by version:
+  Solr >= 5.6.0 will use 'manage-schema'
+  Solr < 5.6.0 will default to 'schema.xml'
+
 ## Usage
 
 ### Simple Use Case

@@ -108,9 +108,18 @@
 #
 # [*log4j_rootlogger_loglevel*]
 #   The loglevel to set for log4j.
-#   Use the defined enum.  Valid options 
+#   Use the defined enum.  Valid options
 #  'ALL', 'DEBUG', 'ERROR', 'FATAL', 'INFO', 'OFF', 'TRACE', 'TRACE_INT','WARN'
 #   Default: 'INFO'
+#
+# [*schema_name*]
+#   The Solr cores' schema name. This should be set to `schema.xml` if using
+#   the classic schema.xml method. If using a managed schema, set this to
+#   Solr's "managedSchemaResourceName" setting, typically 'manage-schema'.
+#   Refer to Solr's documentation for `core.properties` for details.
+#   Default: varies by version:
+#     Solr >= 5.6.0 will use 'manage-schema'
+#     Solr < 5.6.0 will default to 'schema.xml'
 #
 # === Variables
 #
@@ -167,7 +176,8 @@ class solr (
       'WARN'
     ],
     String
-  ] $log4j_rootlogger_loglevel  = $solr::params::log4j_rootlogger_loglevel
+  ] $log4j_rootlogger_loglevel  = $solr::params::log4j_rootlogger_loglevel,
+  $schema_name                 = undef,
 ) inherits ::solr::params{
 
   ## === Variables === ##
@@ -179,12 +189,21 @@ class solr (
   $basic_dir      = "${solr_server}/solr/configsets/basic_configs/conf"
   $solr_lib_dir   = "${solr_server}/solr-webapp/webapp/WEB-INF/lib"
 
-  # I have confirmed that managed-schema doesn't work in 5.5.3
-  # So I am pushing to version 5.6.0.
-  if versioncmp($solr::version, '5.6.0') >= 0 {
-    $schema_filename = 'managed-schema'
-  } else {
-    $schema_filename = 'schema.xml'
+  # If no value for `schema_name` is provided, use a sensible default for this
+  # version of Solr.
+  case $schema_name {
+    undef: {
+      # I have confirmed that managed-schema doesn't work in 5.5.3
+      # So I am pushing to version 5.6.0.
+      if versioncmp($solr::version, '5.6.0') >= 0 {
+        $schema_filename = 'managed-schema'
+      } else {
+        $schema_filename = 'schema.xml'
+      }
+    }
+    default: {
+      $schema_filename = $schema_name
+    }
   }
 
   anchor{'solr::begin': }

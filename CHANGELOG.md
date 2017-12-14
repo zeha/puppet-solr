@@ -1,3 +1,10 @@
+## 2017-12-14 Release 0.5.12
+
+Add schema_name parameter
+
+### Changed
+  - Added a 'schema_name' parameter to customize the 'schema' property in a core's 'core.properties' file. (contributed by Josh Beard)
+
 ## 2017-12-06 Release 0.5.11
 Fixed bug with solr_home
 
