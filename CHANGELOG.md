@@ -1,4 +1,4 @@
-## 2017-12-14 Release 0.5.12
+## 2017-12-15 Release 0.5.12
 
 Add schema_name parameter
 
