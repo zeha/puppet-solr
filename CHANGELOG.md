@@ -1,3 +1,12 @@
+## 2018-01-22 Release 0.5.13
+
+Switched Deb based OS's to use openjdk instead of oracle java
+
+### Changed
+  - Removed installation of oracle's java 8.
+  - Switched deb based operating systems to use openjdk instead of oracle.
+  - The change was due to unreliability of the ppa to install oracle java.
+
 ## 2017-12-15 Release 0.5.12
 
 Add schema_name parameter

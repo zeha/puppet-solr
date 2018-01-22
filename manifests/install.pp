@@ -24,13 +24,6 @@ class solr::install {
   # install requirements
   ensure_packages($solr::required_packages)
 
-  if $solr::use_java_module {
-    class{'java8':
-      require => Anchor['solr::install::begin'],
-      before  => User[$solr::solr_user],
-    }
-  }
-
   ## create a solr user
   user {$solr::solr_user:
     ensure     => present,

@@ -87,23 +87,19 @@ class solr::params (
       } else {
         $is_systemd = false
       }
-
-      # java8 module for installing oracle java on debian systems
-      $use_java_module = false
     }
     'debian':{
-      $java_home = '/usr/lib/jvm/java-8-oracle/jre'
+      $java_home = '/usr/lib/jvm/java-8-openjdk-amd64/jre'
       $solr_env = '/etc/default/solr'
       if $::operatingsystem == 'Ubuntu' and
       versioncmp($::operatingsystemrelease, '15.04') >= 0 {
         $is_systemd = true
-        $required_packages = ['unzip','lsof','software-properties-common']
+        $required_packages = ['unzip','lsof','software-properties-common',
+        'openjdk-8-jre']
       } else {
         $is_systemd = false
-        $required_packages = ['unzip','lsof']
+        $required_packages = ['unzip','lsof','openjdk-8-jre']
       }
-      # java8 module for installing oracle java on debian systems
-      $use_java_module = true
     }
     default: {
       fail("Unsupported OS ${::osfamily}.\

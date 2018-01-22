@@ -76,12 +76,6 @@
 #     * Debian/Ubuntu: '/usr/lib/jvm/java-8-openjdk-amd64/jre'
 #     * CentOS/RHEL: '/usr/lib/jvm/jre-1.8.0'
 #
-# [*use_java_module*]
-#   Uses the spantree/java8 module to install java.
-#   If set to false, this module does not manage java and will fail if
-#   java is not present on the system.
-#   Default: true
-#
 # [*solr_environment*]
 #   ARRAY - Bash style environment variables passed at the end of the solr
 #   server environment.
@@ -156,7 +150,6 @@ class solr (
   $solr_logs                  = $solr::params::solr_logs,
   $solr_home                  = $solr::params::solr_home,
   $java_home                  = $solr::params::java_home,
-  $use_java_module            = $solr::params::use_java_module,
   $solr_environment           = [],
   $cores                      = {},
   $required_packages          = $solr::params::required_packages,
