@@ -4,6 +4,7 @@ Readme Change
 
 ### Changed
   - Updated readme with correct installation directory as default.
+  - Updated readme with note about java requirement.
 
 ## 2018-01-22 Release 0.5.13
 

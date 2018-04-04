@@ -21,12 +21,9 @@ This module utilizes the params concept so all default parameters are configured
 
 ## Setup
 
-### What solr affects
+### Requirements
 
-Installs the following packages
-* java 8 jre.
-
-Installs and configures SOLR
+The solr puppet module no longer manages java.  However, java is a requirement for installation.
 
 ## Configuration
 
