@@ -1,3 +1,10 @@
+## 2018-04-05 Release 0.5.14
+
+Readme Change
+
+### Changed
+  - Updated readme with correct installation directory as default.
+
 ## 2018-01-22 Release 0.5.13
 
 Switched Deb based OS's to use openjdk instead of oracle java
