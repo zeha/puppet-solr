@@ -1,19 +1,4 @@
-# == Class: solr::config
-#
-# Full description of class solr here.
-#
-# === Parameters
-#
-#
-# === Variables
-#
-#
-# === Examples
-#
-#
-# === Copyright
-#
-# GPL-3.0+
+# @summary Full description of class solr here.
 #
 class solr::config {
 

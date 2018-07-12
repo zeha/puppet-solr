@@ -1,14 +1,4 @@
-# == Class: solr::service
-#
-# Manages the service for solr.
-#
-# === Parameters
-#
-# === Variables
-#
-# === Copyright
-#
-# GPL-3.0+
+# @summary Manages the service for solr.
 #
 class solr::service {
   anchor{'solr::service::begin':}

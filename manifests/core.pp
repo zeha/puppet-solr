@@ -1,76 +1,57 @@
-# == Type: solr::core
+# @summary Sets up a core based on the example core installed by default.
 #
-# Sets up a core based on the example core installed by default.
-#
-# === Parameters
-#
-# [*core_name*]
+# @param [String] core_name
 #   The name of the core (must be unique).
-#   Default: $title
 #
-# [*replace*]
+# @param [Boolean] replace
 #   Whether or not files should be updated if they are different from the source
 #   specified.
-#   Default: true
 #
-# [*currency_src_file*]
+# @param [String] currency_src_file
 #   The currency file for the core.  It can either be a local file
 #   (managed outside of this module) or a remote file served through a puppet
 #   file server (puppet:///).
-#   The default is the example currency file.
 #
-# [*protwords_src_file*]
+# @param [Array] other_files
+#   An array of hashes to create file resources.
+#
+# @param [String] protwords_src_file
 #   The schema file for the core.  It can either be a local file
 #   (managed outside of this module) or a remote file served through a puppet
 #   file server (puppet:///).
-#   The default is the example protwords file.
 #
-# [*schema_src_file*]
+# @param [String] schema_src_file
 #   The schema file for the core.  It can either be a local file
 #   (managed outside of this module) or a remote file served through a puppet
 #   file server (puppet:///).
-#   The default is the example schema file.
 #
-# [*solrconfig_src_file*]
+# @param [String] solrconfig_src_file
 #   The schema file for the core.  It can either be a local file
 #   (managed outside of this module) or a remote file served through a puppet
 #   file server (puppet:///).
-#   The default is the example solrconfig file.
 #
-# [*stopwords_src_file*]
+# @param [String] stopwords_src_file
 #   The schema file for the core.  It can either be a local file
 #   (managed outside of this module) or a remote file served through a puppet
 #   file server (puppet:///).
-#   The default is the example stopwords file.
 #
-# [*synonyms_src_file*]
+# @param [String] synonyms_src_file
 #   The schema file for the core.  It can either be a local file
 #   (managed outside of this module) or a remote file served through a puppet
 #   file server (puppet:///).
-#   The default is the example synonyms file.
-#
-# === Variables
-#
-# [*dest_dir*]
-#
-#
-# === Examples
-#
-# === Copyright
-#
-# GPL-3.0+
 #
 define solr::core (
-  $core_name            = $title,
-  $replace              = true,
-  $currency_src_file    = "${::solr::basic_dir}/currency.xml",
-  $other_files          = [],
-  $protwords_src_file   = "${::solr::basic_dir}/protwords.txt",
-  $schema_src_file      = "${::solr::basic_dir}/${solr::schema_filename}",
-  $solrconfig_src_file  = "${::solr::basic_dir}/solrconfig.xml",
-  $stopwords_src_file   = "${::solr::basic_dir}/stopwords.txt",
-  $synonyms_src_file    = "${::solr::basic_dir}/synonyms.txt",
-  $elevate_src_file     = "${::solr::basic_dir}/elevate.xml",
+  String  $core_name            = $title,
+  Boolean $replace              = true,
+  String  $currency_src_file    = "${::solr::basic_dir}/currency.xml",
+  Array   $other_files          = [],
+  String  $protwords_src_file   = "${::solr::basic_dir}/protwords.txt",
+  String  $schema_src_file      =
+  "${::solr::basic_dir}/${solr::schema_filename}",
+  String  $solrconfig_src_file  = "${::solr::basic_dir}/solrconfig.xml",
+  String  $stopwords_src_file   = "${::solr::basic_dir}/stopwords.txt",
+  String  $synonyms_src_file    = "${::solr::basic_dir}/synonyms.txt",
+  String  $elevate_src_file     = "${::solr::basic_dir}/elevate.xml",
 ){
 
   anchor{"solr::core::${title}::begin":}

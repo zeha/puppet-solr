@@ -1,24 +1,11 @@
-# == Class: solr::install
-#
-# Installs the packages and software that support solr.
-#
-# === Parameters
-#
-#
-# === Variables
-#
-# [*tarball*]
-#   The destination full path to the solr tarball.
-#
-# === Copyright
-#
-# GPL-3.0+
+# @summary Installs the packages and software that support solr.
 #
 class solr::install {
 
   anchor{'solr::install::begin':}
 
   # == variables == #
+  # The destination full path to the solr tarball.
   $tarball = "${solr::solr_downloads}/solr-${solr::version}.tgz"
 
   # install requirements

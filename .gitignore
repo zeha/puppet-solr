@@ -10,3 +10,4 @@ vagrant/puppet/modules/*
 /vagrant/nbproject/private/
 vagrant/puppet/logs
 vagrant/results.txt
+.yardoc/

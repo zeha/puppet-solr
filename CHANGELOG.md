@@ -1,3 +1,10 @@
+## 2018-07-12 Release 0.5.15
+  - Added data types to parameters.
+  - Switched to puppet strings documentation style.
+  - Added reference documentation.
+  - Removed class parameters from readme.
+  - Changed formatting in changelog.
+
 ## 2018-04-05 Release 0.5.14
 
 Readme Change
