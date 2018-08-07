@@ -40,7 +40,7 @@ class solr::install {
   wget::fetch{'solr':
     source      => "${solr::url}/${solr::version}/solr-${solr::version}.tgz",
     destination => $tarball,
-    timeout     => 0,
+    timeout     => $solr::timeout,
     verbose     => false,
     require     => File[$solr::solr_downloads],
   }

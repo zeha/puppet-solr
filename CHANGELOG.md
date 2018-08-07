@@ -1,3 +1,7 @@
+## 2018-08-07 Release 0.6.0
+  - Changed the type for the timeout variable from String to Integer.
+  - Fixed issue where timeout variable wasn't being used by download program.
+
 ## 2018-07-12 Release 0.5.15
   - Added data types to parameters.
   - Switched to puppet strings documentation style.

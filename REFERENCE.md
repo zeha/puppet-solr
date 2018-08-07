@@ -60,11 +60,11 @@ Default value: 'http://archive.apache.org/dist/lucene/solr/'
 
 ##### `timeout`
 
-Data type: `String`
+Data type: `Integer`
 
 The timeout used for downloading the solr package.
 
-Default value: '120'
+Default value: 120
 
 ##### `manage_user`
 
