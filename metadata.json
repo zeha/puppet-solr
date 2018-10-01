@@ -3,8 +3,8 @@
   "version":      "0.2.1",
   "author":       "Landcare Research",
   "summary":      "Configures and Installs Apache Solr",
-  "license":      "GPL-3.0+",
-  "source":       "git://bitbucket.org/landcareresearch/puppet-solr.git",
+  "license":      "GPL-3.0-or-later",
+  "source":       "https://bitbucket.org/landcareresearch/puppet-solr",
   "project_page": "https://bitbucket.org/landcareresearch/puppet-solr",
   "issues_url":   "https://bitbucket.org/landcareresearch/puppet-solr/issues",
   "operatingsystem_support": [

@@ -1,3 +1,7 @@
+## 2018-10-01 Release 0.6.2
+  - Updated metadata's GPL License to comply with [SPDX License](https://spdx.org/licenses/) 3.2
+  - Changed source in metadata.
+ 
 ## 2018-10-01 Release 0.6.1
   - [Issue #14](https://bitbucket.org/landcareresearch/puppet-solr/issues/14/is-there-a-way-to-override-ssl-setting-in) - Added SSL Keystore parameters for solr config file.
   - Moved solr config file to use epp file format instead of erb.
