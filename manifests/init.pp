@@ -61,7 +61,7 @@
 #     * Debian/Ubuntu: '/usr/lib/jvm/java-8-openjdk-amd64/jre'
 #     * CentOS/RHEL: '/usr/lib/jvm/jre-1.8.0'
 #
-# @param [Array] solr_environment
+# @param [Optional[Array]] solr_environment
 #   Bash style environment variables passed at the end of the solr
 #   server environment.
 #
@@ -73,7 +73,7 @@
 # @param [Array[String]] required_packages
 #   Specified in params and is platform dependent.
 #
-# @param [Array] zk_hosts
+# @param [Optional[Array]] zk_hosts
 #   For configuring ZooKeeper ensemble.
 #
 # @param [String] log4j_maxfilesize
@@ -95,6 +95,46 @@
 #     Solr >= 5.6.0 will use 'manage-schema'
 #     Solr < 5.6.0 will default to 'schema.xml'
 #
+# @param [Optional[String]] ssl_key_store
+#  The path to the key store.  If the key store is in the solr's home/etc
+#  directory, than can be etc/KEY_STORE_FILE
+#
+# @param [Optional[String]] ssl_key_store_password
+#   The secret password of the key store.  Required if ssl_key_store is set.
+#
+# @param [Optional[String]] ssl_key_store_type
+#   The type of key store.
+#
+# @param [Optional[String]] ssl_trust_store
+#   If ssl_key_store is set and ssl_trust_store is undef, the settings
+#   will use the key store as the trust store.  This can be set to
+#   an indepenent trust store.
+#  
+# @param [Optional[String]] ssl_trust_store_password
+#   The password to the trust store.  If undef and ssl_key_store_password
+#   is set, the trust store password will use the key store's password.
+#
+# @param [Optional[String]] ssl_trust_store_type
+#   The type of trust store.
+#
+# @param [Optional[Boolean]] ssl_need_client_auth
+#  Set to true if the client requires authentication.
+#
+# @param [Optional[Boolean]] ssl_want_client_auth
+#   Enables the client to authenticate but is not required.
+#
+# @param [Optional[String]] ssl_client_key_store
+#   If undef, will use values set for ssl_key_store for clients.
+#
+# @param [Optional[String]] ssl_client_key_store_password
+#   If undef, will use values set for ssl_key_store_password for clients.
+#
+# @param [Optional[String]] ssl_client_trust_store
+#   If undef, will use values set for ssl_trust_store for clients.
+#
+# @param [Optional[String]] ssl_client_trust_store_password 
+#   If undef, will use values set for ssl_trust_store_password for clients.
+#
 # @example
 #
 #   include solr
@@ -104,33 +144,46 @@
 # GPL-3.0+
 #
 class solr (
-  String           $version                    = '6.2.0',
-  String           $url                        =
+  String           $version                          = '6.2.0',
+  String           $url                              =
   'http://archive.apache.org/dist/lucene/solr/',
-  Integer          $timeout                    = 120,
-  Boolean          $manage_user                = true,
-  String           $solr_user                  = 'solr',
-  String           $solr_host                  = '127.0.0.1',
-  String           $solr_port                  = '8983',
-  String           $solr_heap                  = '512m',
-  String           $solr_downloads             = '/opt/solr_downloads',
-  String           $install_dir                = '/opt',
-  Boolean          $install_dir_mg             = false,
-  String           $var_dir                    = '/var/solr',
-  String           $solr_logs                  = '/var/log/solr',
-  String           $solr_home                  = '/opt/solr/server/solr',
-  String           $java_home                  = $solr::params::java_home,
-  Array            $solr_environment           = [],
-  Hash             $cores                      = {},
-  Array[String]    $required_packages          = $solr::params::required_packages,
-  Array            $zk_hosts                   = [],
-  String           $log4j_maxfilesize          = '4MB',
-  String           $log4j_maxbackupindex       = '9',
+  Integer          $timeout                          = 120,
+  Boolean          $manage_user                      = true,
+  String           $solr_user                        = 'solr',
+  String           $solr_host                        = '127.0.0.1',
+  String           $solr_port                        = '8983',
+  String           $solr_heap                        = '512m',
+  String           $solr_downloads                   = '/opt/solr_downloads',
+  String           $install_dir                      = '/opt',
+  Boolean          $install_dir_mg                   = false,
+  String           $var_dir                          = '/var/solr',
+  String           $solr_logs                        = '/var/log/solr',
+  String           $solr_home                        = '/opt/solr/server/solr',
+  String           $java_home                        = $solr::params::java_home,
+  Optional[Array]  $solr_environment                 = undef,
+  Hash             $cores                            = {},
+  Array[String]    $required_packages                =
+  $solr::params::required_packages,
+  Optional[Array]  $zk_hosts                         = undef,
+  String           $log4j_maxfilesize                = '4MB',
+  String           $log4j_maxbackupindex             = '9',
   Variant[
     Enum['ALL', 'DEBUG', 'ERROR', 'FATAL', 'INFO', 'OFF', 'TRACE',
       'TRACE_INT', 'WARN'],
-    String]        $log4j_rootlogger_loglevel  = 'INFO',
-  Optional[String] $schema_name                = undef,
+    String]        $log4j_rootlogger_loglevel        = 'INFO',
+  Optional[String] $schema_name                      = undef,
+  Optional[String]  $ssl_key_store                   = undef,
+  Optional[String]  $ssl_key_store_password          = undef,
+  Optional[String]  $ssl_key_store_type              = 'JKS',
+  Optional[String]  $ssl_trust_store                 = undef,
+  Optional[String]  $ssl_trust_store_password        = undef,
+  Optional[String]  $ssl_trust_store_type             = 'JKS',
+  Optional[Boolean] $ssl_need_client_auth            = undef,
+  Optional[Boolean] $ssl_want_client_auth            = undef,
+  Optional[String]  $ssl_client_key_store            = undef,
+  Optional[String]  $ssl_client_key_store_password   = undef,
+  Optional[String]  $ssl_client_trust_store          = undef,
+  Optional[String]  $ssl_client_trust_store_password = undef,
 ) inherits ::solr::params{
 
   ## === Variables === ##

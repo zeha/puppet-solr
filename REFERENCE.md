@@ -170,12 +170,12 @@ Default value: $solr::params::java_home
 
 ##### `solr_environment`
 
-Data type: `Array`
+Data type: `Optional[Array]`
 
 Bash style environment variables passed at the end of the solr
 server environment.
 
-Default value: []
+Default value: `undef`
 
 ##### `cores`
 
@@ -197,11 +197,11 @@ Default value: $solr::params::required_packages
 
 ##### `zk_hosts`
 
-Data type: `Array`
+Data type: `Optional[Array]`
 
 For configuring ZooKeeper ensemble.
 
-Default value: []
+Default value: `undef`
 
 ##### `log4j_maxfilesize`
 
@@ -242,6 +242,106 @@ Refer to Solr's documentation for `core.properties` for details.
 Default: varies by version:
   Solr >= 5.6.0 will use 'manage-schema'
   Solr < 5.6.0 will default to 'schema.xml'
+
+Default value: `undef`
+
+##### `ssl_key_store`
+
+Data type: `Optional[String]`
+
+The path to the key store.  If the key store is in the solr's home/etc
+directory, than can be etc/KEY_STORE_FILE
+
+Default value: `undef`
+
+##### `ssl_key_store_password`
+
+Data type: `Optional[String]`
+
+The secret password of the key store.  Required if ssl_key_store is set.
+
+Default value: `undef`
+
+##### `ssl_key_store_type`
+
+Data type: `Optional[String]`
+
+The type of key store.
+
+Default value: 'JKS'
+
+##### `ssl_trust_store`
+
+Data type: `Optional[String]`
+
+If ssl_key_store is set and ssl_trust_store is undef, the settings
+will use the key store as the trust store.  This can be set to
+an indepenent trust store.
+
+Default value: `undef`
+
+##### `ssl_trust_store_password`
+
+Data type: `Optional[String]`
+
+The password to the trust store.  If undef and ssl_key_store_password
+is set, the trust store password will use the key store's password.
+
+Default value: `undef`
+
+##### `ssl_trust_store_type`
+
+Data type: `Optional[String]`
+
+The type of trust store.
+
+Default value: 'JKS'
+
+##### `ssl_need_client_auth`
+
+Data type: `Optional[Boolean]`
+
+Set to true if the client requires authentication.
+
+Default value: `undef`
+
+##### `ssl_want_client_auth`
+
+Data type: `Optional[Boolean]`
+
+Enables the client to authenticate but is not required.
+
+Default value: `undef`
+
+##### `ssl_client_key_store`
+
+Data type: `Optional[String]`
+
+If undef, will use values set for ssl_key_store for clients.
+
+Default value: `undef`
+
+##### `ssl_client_key_store_password`
+
+Data type: `Optional[String]`
+
+If undef, will use values set for ssl_key_store_password for clients.
+
+Default value: `undef`
+
+##### `ssl_client_trust_store`
+
+Data type: `Optional[String]`
+
+If undef, will use values set for ssl_trust_store for clients.
+
+Default value: `undef`
+
+##### `ssl_client_trust_store_password`
+
+Data type: `Optional[String]`
+
+If undef, will use values set for ssl_trust_store_password for clients.
 
 Default value: `undef`
 

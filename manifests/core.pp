@@ -71,8 +71,6 @@ define solr::core (
   # parse the version to get first
   $version_array = split($::solr::version,'[.]')
   $ver_major = $version_array[0]+0
-  notice("solr::version = ${::solr::version}")
-  notice("varray = ${version_array}")
   if $ver_major >= 6 {
     $elevate_src_file_in = $elevate_src_file
   }else{

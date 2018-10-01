@@ -30,7 +30,29 @@ class solr::config {
   # setup default jetty configuration file.
   file { $::solr::solr_env:
     ensure  => file,
-    content => template('solr/solr.in.sh.erb'),
+    content => epp('solr/solr.in.sh.epp',{
+      java_home                       => $solr::java_home,
+      solr_heap                       => $solr::solr_heap,
+      zk_hosts                        => $solr::zk_hosts,
+      solr_pid_dir                    => $solr::solr_pid_dir,
+      solr_home                       => $solr::solr_home,
+      var_dir                         => $solr::var_dir,
+      solr_logs                       => $solr::solr_logs,
+      solr_host                       => $solr::solr_host,
+      solr_port                       => $solr::solr_port,
+      solr_environment                => $solr::solr_environment,
+      ssl_key_store                   => $solr::ssl_key_store,
+      ssl_key_store_password          => $solr::ssl_key_store_password,
+      ssl_trust_store                 => $solr::ssl_trust_store,
+      ssl_trust_store_password        => $solr::ssl_trust_store_password,
+      ssl_need_client_auth            => $solr::ssl_need_client_auth,
+      ssl_want_client_auth            => $solr::ssl_want_client_auth,
+      ssl_client_key_store            => $solr::ssl_client_key_store,
+      ssl_client_key_store_password   => $solr::ssl_client_key_store_password,
+      ssl_client_trust_store          => $solr::ssl_client_trust_store,
+      ssl_client_trust_store_password =>
+      solr::ssl_client_trust_store_password,
+    }),
     require => File[$::solr::solr_logs],
   }
 
@@ -46,7 +68,6 @@ class solr::config {
   # setup the service level entry
   if $::solr::params::is_systemd {
     include '::systemd'
-    # TODO: Create systemd unit file
     ::systemd::unit_file { 'solr.service':
       content => template('solr/solr.service.erb'),
       require => File[$::solr::solr_env],
@@ -65,7 +86,7 @@ class solr::config {
     file { '/etc/init.d/solr':
       ensure  => file,
       mode    => '0755',
-      content => template('solr/solr.sh.erb'),
+      content => epp('solr/solr.sh.erb'),
       require => File[$::solr::solr_env],
       before  => Anchor['solr::config::end'],
     }
