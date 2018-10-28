@@ -86,7 +86,7 @@ class solr::config {
     file { '/etc/init.d/solr':
       ensure  => file,
       mode    => '0755',
-      content => epp('solr/solr.sh.erb'),
+      content => template('solr/solr.sh.erb'),
       require => File[$::solr::solr_env],
       before  => Anchor['solr::config::end'],
     }
