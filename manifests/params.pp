@@ -27,10 +27,10 @@ class solr::params (
       elsif $::operatingsystem == 'Debian'
       and versioncmp($::operatingsystemrelease, '9.0') >= 0 {
         $is_systemd = true
-        $required_packages = ['unzip','lsof','openjdk-8-jre']
+        $required_packages = ['unzip','lsof']
       } else {
         $is_systemd = false
-        $required_packages = ['unzip','lsof','openjdk-8-jre']
+        $required_packages = ['unzip','lsof']
       }
     }
     default: {
